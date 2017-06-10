@@ -9,10 +9,23 @@ lmtzr = WordNetLemmatizer()
 def tokenize(text):
 	return [lmtzr.lemmatize(token) for token in simple_preprocess(text) if token not in STOPWORDS]
 
+
+
+def print_topics(lda, dictionary, num_topics = 75):
+	i = 0
+	for topic in lda.show_topics(num_topics=num_topics, formatted=False):
+                        i = i + 1
+                        print "Topic #" + str(i) + ":",
+                        for p, id in topic:
+                                print dictionary[int(id)],
+
+                        print ""
+
 def build_lda(corpus_file, num_topics = 75):
 		(dictionary, text, corp) = build_corpus(corpus_file)
 		corpus = [dictionary.doc2bow(t) for t in corp]		
 		lda = ldamc(corpus,num_topics = num_topics)
+		print_topics(lda, dictionary, num_topics)
 		return lda
 
 def build_corpus(corpus_file):
