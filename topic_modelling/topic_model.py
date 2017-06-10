@@ -1,15 +1,25 @@
 from gensim import corpora, models
 from gensim.utils import smart_open, simple_preprocess
 from gensim.parsing.preprocessing import STOPWORDS
+from gensim.matutils import sparse2full
 from gensim.models.ldamulticore import LdaMulticore as ldamc
 from nltk.stem.wordnet import WordNetLemmatizer
-from scipy.spatial.distance import pdist, squareform
+from scipy.linalg import norm
+#from scipy.spatial.distance import pdist, squareform
+
+import numpy as np
 
 lmtzr = WordNetLemmatizer()
 
-def hellinger(X):
-	return squareform(pdist(np.sqrt(X)))/np.sqrt(2)
+def compute_distance(lda, l1, l2):
+	d1 = sparse2full(l1, lda.num_topics)
+	d2 = sparse2full(l2, lda.num_topics)
+	#sim = np.sqrt(0.5 * ((np.sqrt(dense1) - np.sqrt(dense2))**2).sum())
+	return hellinger(d1, d2)
 
+def hellinger(p, q):
+	#return squareform(pdist(np.sqrt(X)))/np.sqrt(2)
+	return norm(np.sqrt(p) - np.sqrt(q)) / np.sqrt(2)
 
 def tokenize(text):
 	return [lmtzr.lemmatize(token) for token in simple_preprocess(text) if token not in STOPWORDS]
@@ -52,4 +62,31 @@ def get_lda_probs(lda_model,document_file):
 
 if __name__ == '__main__':
 	lda_model = build_lda('../data/story_data.dat', num_topics = 100)
-	print get_lda_probs(lda_model, '../data/clapping.dat')
+	x = get_lda_probs(lda_model, '../data/clapping.dat')
+	y = get_lda_probs(lda_model,'../data/akkana.dat')
+	z = get_lda_probs(lda_model,'../data/bala.dat')
+	a = get_lda_probs(lda_model,'../data/mortuary.dat')
+	b = get_lda_probs(lda_model,'../data/ibrahim.dat')
+	c = get_lda_probs(lda_model,'../data/dad.dat')
+	d = get_lda_probs(lda_model,'../data/rani.dat')
+	print 'B'
+	print z
+	
+	print 'M'
+	print a
+
+	print 'I'
+	print b
+
+	print 'D'
+	print c
+
+	print 'R'
+	print d
+
+	print 'B v M'
+	print compute_distance(lda_model, z, a)
+	print 'I v R'
+	print compute_distance(lda_model, b, d)
+	print 'D v R'
+	print compute_distance(lda_model, c, d)
