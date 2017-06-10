@@ -3,30 +3,32 @@ from gensim.utils import smart_open, simple_preprocess
 from gensim.parsing.preprocessing import STOPWORDS
 from gensim.models.ldamulticore import LdaMulticore as ldamc
 from nltk.stem.wordnet import WordNetLemmatizer
+from scipy.spatial.distance import pdist, squareform
 
 lmtzr = WordNetLemmatizer()
+
+def hellinger(X):
+	return squareform(pdist(np.sqrt(X)))/np.sqrt(2)
+
 
 def tokenize(text):
 	return [lmtzr.lemmatize(token) for token in simple_preprocess(text) if token not in STOPWORDS]
 
-
-
 def print_topics(lda, dictionary, num_topics = 75):
 	i = 0
 	for topic in lda.show_topics(num_topics=num_topics, formatted=False):
-                        i = i + 1
-                        print "Topic #" + str(i) + ":",
-                        for p, id in topic:
-                                print dictionary[int(id)],
-
-                        print ""
+        	i = i + 1
+         	print "Topic #" + str(i) + ":",
+         	for p, id in topic:
+         		print dictionary[int(id)],
+        	print ""
 
 def build_lda(corpus_file, num_topics = 75):
-		(dictionary, text, corp) = build_corpus(corpus_file)
-		corpus = [dictionary.doc2bow(t) for t in corp]		
-		lda = ldamc(corpus,num_topics = num_topics)
-		print_topics(lda, dictionary, num_topics)
-		return lda
+	(dictionary, text, corp) = build_corpus(corpus_file)
+	corpus = [dictionary.doc2bow(t) for t in corp]		
+	lda = ldamc(corpus,num_topics = num_topics)
+	print_topics(lda, dictionary, num_topics)
+	return lda
 
 def build_corpus(corpus_file):
 	with open(corpus_file,'r+') as f:
@@ -46,9 +48,7 @@ def get_lda_probs(lda_model,document_file):
 		vec_bow = dictionary.doc2bow([lmtzr.lemmatize(token) for token in simple_preprocess(doc_text) if token not in STOPWORDS])
 		vec_lsi = lda_model[vec_bow]
 		return vec_lsi
-		#doc_lda = lda[corpus]
 	
-		#print doc_lda
 
 if __name__ == '__main__':
 	lda_model = build_lda('../data/story_data.dat', num_topics = 100)
