@@ -6,7 +6,8 @@ from gensim.models.ldamulticore import LdaMulticore as ldamc
 from nltk.stem.wordnet import WordNetLemmatizer
 from scipy.linalg import norm
 #from scipy.spatial.distance import pdist, squareform
-
+import os
+import itertools
 import numpy as np
 
 lmtzr = WordNetLemmatizer()
@@ -61,32 +62,22 @@ def get_lda_probs(lda_model,document_file):
 	
 
 if __name__ == '__main__':
-	lda_model = build_lda('../data/story_data.dat', num_topics = 100)
-	x = get_lda_probs(lda_model, '../data/clapping.dat')
-	y = get_lda_probs(lda_model,'../data/akkana.dat')
-	z = get_lda_probs(lda_model,'../data/bala.dat')
-	a = get_lda_probs(lda_model,'../data/mortuary.dat')
-	b = get_lda_probs(lda_model,'../data/ibrahim.dat')
-	c = get_lda_probs(lda_model,'../data/dad.dat')
-	d = get_lda_probs(lda_model,'../data/rani.dat')
-	print 'B'
-	print z
-	
-	print 'M'
-	print a
+	lda_model = build_lda('../data/stories/story_data.dat', num_topics = 100)
+	x = []
+	names = []
+        for filename in os.listdir('../data/stories/'):
+	    if filename != 'story_data.dat': 	
+		x.append(get_lda_probs(lda_model, '../data/stories/'+filename))
+		names.append(filename)
+	pairs = list(itertools.product(names,repeat=2))
+	pairs_models = list(itertools.product(x, repeat=2))
+	values = []
+	for p in xrange(len(pairs)):
+		print pairs[p]
+		print compute_distance(lda_model,*pairs_models[p])
+		values.append(compute_distance(lda_model,*pairs_models[p]))
+	# Average similarity between stories 0.315673248997
+	print "Average similarity"
+	print np.mean(values)
 
-	print 'I'
-	print b
 
-	print 'D'
-	print c
-
-	print 'R'
-	print d
-
-	print 'B v M'
-	print compute_distance(lda_model, z, a)
-	print 'I v R'
-	print compute_distance(lda_model, b, d)
-	print 'D v R'
-	print compute_distance(lda_model, c, d)
