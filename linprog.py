@@ -5,7 +5,7 @@ def summary_information(summary):
     val = len(summary.split())/time_taken_to_speak_one_word
     return val
 
-def get_path_video_lp(edges, content_summaries, l_opts, s_edges, max_num_s):
+def get_monuments_story_lp(edges, content_summaries, l_opts, s_edges, max_num_s):
     # This function solves the LP
     # as formulated in the report
     # For the time being, the information
@@ -16,10 +16,6 @@ def get_path_video_lp(edges, content_summaries, l_opts, s_edges, max_num_s):
     # for both content and glue sentences
 
     information_in_content = 1
-    information_in_glue = 1
-
-    alpha = 1
-    beta = 1
 
     s_sequence = range(0,max_num_s)
     s_x = pulp.LpVariable.dicts("selected_content_videos",
