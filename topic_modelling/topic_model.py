@@ -61,23 +61,23 @@ def get_lda_probs(lda_model,document_file):
 		return vec_lsi
 	
 
-if __name__ == '__main__':
-	lda_model = build_lda('../data/stories/story_data.dat', num_topics = 100)
-	x = []
-	names = []
-        for filename in os.listdir('../data/stories/'):
-	    if filename != 'story_data.dat': 	
-		x.append(get_lda_probs(lda_model, '../data/stories/'+filename))
-		names.append(filename)
-	pairs = list(itertools.product(names,repeat=2))
-	pairs_models = list(itertools.product(x, repeat=2))
-	values = []
-	for p in xrange(len(pairs)):
-		print pairs[p]
-		print compute_distance(lda_model,*pairs_models[p])
-		values.append(compute_distance(lda_model,*pairs_models[p]))
-	# Average similarity between stories 0.315673248997
-	print "Average similarity"
-	print np.mean(values)
+# if __name__ == '__main__':
+# 	lda_model = build_lda('../data/stories/story_data.dat', num_topics = 100)
+# 	x = []
+# 	names = []
+#         for filename in os.listdir('../data/stories/'):
+# 	    if filename != 'story_data.dat': 	
+# 		x.append(get_lda_probs(lda_model, '../data/stories/'+filename))
+# 		names.append(filename)
+# 	pairs = list(itertools.product(names,repeat=2))
+# 	pairs_models = list(itertools.product(x, repeat=2))
+# 	values = []
+# 	for p in xrange(len(pairs)):
+# 		print pairs[p]
+# 		print compute_distance(lda_model,*pairs_models[p])
+# 		values.append(compute_distance(lda_model,*pairs_models[p]))
+# 	# Average similarity between stories 0.315673248997
+# 	print "Average similarity"
+# 	print np.mean(values)
 
 
