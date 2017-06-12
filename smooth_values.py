@@ -39,7 +39,7 @@ def smooth_values(file_name = 'data/FILE0573.MOV.txt', sampling_rate = 5):
 			 	detection2[l] = v
 
 			 
-			if float(val[2])*float(val[3]) > 5:
+			if float(val[2])*float(val[3]) > 3:
 				monument_time[v] += 1
 				#frame_detections[val[0]]['detection'] = val[1]
 				#frame_detections[val[0]]['threshold'] = float(val[2])*float(val[3])
@@ -62,6 +62,6 @@ def smooth_values(file_name = 'data/FILE0573.MOV.txt', sampling_rate = 5):
 	return monument_time_final
 
 
-# if __name__ == '__main__':
-# 	print smooth_values()
+if __name__ == '__main__':
+	print smooth_values()
 
