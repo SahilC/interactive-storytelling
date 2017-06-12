@@ -53,21 +53,15 @@ def smooth_values(file_name = 'data/FILE0573.MOV.txt', sampling_rate = 5):
 			else:
 				monument_time_final[detection2[i]] += 1
 
-		print detection2
-		# print monument_time_final
-		# tot /= (30.0*60)
 		tot = 0
 		for i in monument_time_final.keys():
 			monument_time_final[i]*= (sampling_rate / 24.0)
 			tot += monument_time_final[i]
 
-		print monument_time_final
-		print tot
-		# print '================'
 
-	return monument_time
+	return monument_time_final
 
 
-if __name__ == '__main__':
-	print smooth_values()
+# if __name__ == '__main__':
+# 	print smooth_values()
 
