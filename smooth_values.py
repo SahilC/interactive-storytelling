@@ -1,9 +1,5 @@
 from collections import defaultdict
 from collections import Counter
-import sys
-sys.path.append('topic_modelling/')
-
-from topic_model import *
 
 def smooth_values(file_name = 'data/FILE0573.MOV.txt', sampling_rate = 5):
 	with open(file_name,'r+') as f:
@@ -64,18 +60,3 @@ def smooth_values(file_name = 'data/FILE0573.MOV.txt', sampling_rate = 5):
 
 
 	return monument_time_final
-
-
-if __name__ == '__main__':
-	monument_time_final = smooth_values()
-	detection = monument_time_final.keys()
-	lda_model = build_lda('data/stories/story_data.dat', num_topics = 50)
-
-	topic_dist = []
-	names = []
-	for name in detection:
-		topic_dist.append(get_lda_probs(lda_model, 'data/stories/'+name+'.dat'))
-		names.append(name)
-
-	print find_pairwise_dissimilar(lda_model, topic_dist, names)
-
