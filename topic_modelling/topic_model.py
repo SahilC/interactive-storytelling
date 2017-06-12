@@ -38,7 +38,7 @@ def build_lda(corpus_file, num_topics = 75):
 	(dictionary, text, corp) = build_corpus(corpus_file)
 	corpus = [dictionary.doc2bow(t) for t in corp]		
 	lda = ldamc(corpus,num_topics = num_topics)
-	print_topics(lda, dictionary, num_topics)
+	# print_topics(lda, dictionary, num_topics)
 	return lda
 
 def build_corpus(corpus_file):
@@ -60,24 +60,26 @@ def get_lda_probs(lda_model,document_file):
 		vec_lsi = lda_model[vec_bow]
 		return vec_lsi
 	
+def find_pairwise_dissimilar(lda_model, topic_dist, names):
+	pairs = list(itertools.product(names,repeat=2))
+	pairs_models = list(itertools.product(topic_dist, repeat=2))
+	disimilar_values = {}
+	for p in xrange(len(pairs)):
+		# print pairs[p]
+		val = compute_distance(lda_model,*pairs_models[p])
+		# Average similarity between stories 0.315673248997
+		if val > 0.315673248997:
+			disimilar_values[pairs[p]] = val
+	v = ''
+	max_val = 0
+	for k in disimilar_values.keys():
+		if max_val < disimilar_values[k]:
+			max_val = disimilar_values[k]
+			v = k
+	return v
+	
 
 # if __name__ == '__main__':
 # 	lda_model = build_lda('../data/stories/story_data.dat', num_topics = 100)
-# 	x = []
-# 	names = []
-#         for filename in os.listdir('../data/stories/'):
-# 	    if filename != 'story_data.dat': 	
-# 		x.append(get_lda_probs(lda_model, '../data/stories/'+filename))
-# 		names.append(filename)
-# 	pairs = list(itertools.product(names,repeat=2))
-# 	pairs_models = list(itertools.product(x, repeat=2))
-# 	values = []
-# 	for p in xrange(len(pairs)):
-# 		print pairs[p]
-# 		print compute_distance(lda_model,*pairs_models[p])
-# 		values.append(compute_distance(lda_model,*pairs_models[p]))
-# 	# Average similarity between stories 0.315673248997
-# 	print "Average similarity"
-# 	print np.mean(values)
-
+# 	find_pairwise_dissimilar(lda_model)
 
