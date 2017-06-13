@@ -7,7 +7,7 @@ sys.path.append('topic_modelling/')
 sys.path.append('chowmein/chowmein')
 
 from label_topic import *
-from linprog import *
+from linearprogram import *
 from topic_model import *
 from smooth_values import smooth_values
 
@@ -70,7 +70,7 @@ if __name__ == '__main__':
 		if p[0] == selected and dissimilar_vals[p] < 0.315673248997 and p[1] != selected:
 			print p[1], dissimilar_vals[p]
 
-	solve_lp_for_stories(monument_time_final, stories, 1)
+	print solve_lp_for_stories(monument_time_final, stories, 1)
 
 
 
