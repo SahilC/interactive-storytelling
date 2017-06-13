@@ -41,6 +41,9 @@ if __name__ == '__main__':
 	m1 = labels[word_dist[monument1][idx1][0]]
 	m2 = labels[word_dist[monument2][idx2][0]]
 	r = random.randint(0,len(m1))
+	print monument1
+	print monument2
+	print '========================================'
 	print 'Would you like to listen to a story about the '+(' '.join(m1[r])) +' or the '+(' '.join(m2[r]))+'?'
 
 	
