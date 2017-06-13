@@ -24,6 +24,8 @@ story_mapping = {
 		'shahihammam':'ranimahal',
 }
 
+def ask_question():
+	
 def smooth_values(file_name = 'data/FILE0573.MOV.txt', sampling_rate = 5):
 	
 	monument_time = defaultdict(int)

@@ -90,7 +90,6 @@ def solve_lp_for_stories(l_opts = {}, stories = defaultdict(list) , max_num_s = 
             # print stories[i][j]
     
         tot += l_opts[i]
-    print tot
 
 
 
