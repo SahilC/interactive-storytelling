@@ -60,6 +60,18 @@ def get_lda_probs(lda_model,document_file):
 		vec_lsi = lda_model[vec_bow]
 		return vec_lsi
 	
+def find_most_dissimilar(disimilar_values):
+	v = ''
+	max_val = 0
+	for k in disimilar_values.keys():
+		if max_val < disimilar_values[k]:
+			max_val = disimilar_values[k]
+			v = k
+			
+	if max_val < 0.315673248997:
+		v = (None,None)
+	return v
+
 def find_pairwise_dissimilar(lda_model, topic_dist, names):
 	pairs = list(itertools.product(names,repeat=2))
 	pairs_models = list(itertools.product(topic_dist, repeat=2))
@@ -68,15 +80,9 @@ def find_pairwise_dissimilar(lda_model, topic_dist, names):
 		# print pairs[p]
 		val = compute_distance(lda_model,*pairs_models[p])
 		# Average similarity between stories 0.315673248997
-		if val > 0.315673248997:
-			disimilar_values[pairs[p]] = val
-	v = ''
-	max_val = 0
-	for k in disimilar_values.keys():
-		if max_val < disimilar_values[k]:
-			max_val = disimilar_values[k]
-			v = k
-	return v
+		disimilar_values[pairs[p]] = val
+
+	return disimilar_values
 	
 
 # if __name__ == '__main__':

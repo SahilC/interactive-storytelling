@@ -36,7 +36,6 @@ def smooth_values(file_name = 'data/FILE0573.MOV.txt', sampling_rate = 5):
 		lines = f.read().split("\n")	
 		for l in lines:
 			val = l.split(" ")
-			print val
 			if val[1].split("_")[0] in story_mapping.keys():
 				temp = story_mapping[val[1].split("_")[0]]
 				detection.append(temp)
