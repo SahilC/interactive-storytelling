@@ -7,6 +7,7 @@ sys.path.append('topic_modelling/')
 sys.path.append('chowmein/chowmein')
 
 from label_topic import *
+from linprog import *
 from topic_model import *
 from smooth_values import smooth_values
 
@@ -16,11 +17,13 @@ if __name__ == '__main__':
 	lda_model = build_lda('data/stories/story_data.dat', num_topics = 50)
 
 	word_dist = {}
+	stories = {}
 	for name in detection:
-		word_dist[name] = get_lda_probs(lda_model, 'data/stories/'+name+'.dat')
+		word_dist[name], story = get_lda_probs(lda_model, 'data/stories/'+name+'.dat')
+		stories[name] = [story]
 
 	dissimilar_vals = find_pairwise_dissimilar(lda_model, word_dist.values(), word_dist.keys())
-	monument1,monument2 = find_most_dissimilar(dissimilar_vals)
+	monument1, monument2 = find_most_dissimilar(dissimilar_vals)
 
 	# Find maximum disimilar topics for the topics with the maximum magnitude -- Need to experiment
 	_, idx1 = np.argmax(word_dist[monument1],axis=0)
@@ -67,6 +70,7 @@ if __name__ == '__main__':
 		if p[0] == selected and dissimilar_vals[p] < 0.315673248997 and p[1] != selected:
 			print p[1], dissimilar_vals[p]
 
+	solve_lp_for_stories(monument_time_final, stories, 1)
 
 
 

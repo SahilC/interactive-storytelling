@@ -58,7 +58,7 @@ def get_lda_probs(lda_model,document_file):
 		# vec_bow = dictionary.doc2bow(doc_text.lower().split())
 		vec_bow = dictionary.doc2bow([lmtzr.lemmatize(token) for token in simple_preprocess(doc_text) if token not in STOPWORDS])
 		vec_lsi = lda_model[vec_bow]
-		return vec_lsi
+		return (vec_lsi, doc_text)
 	
 def find_most_dissimilar(disimilar_values):
 	v = ''
