@@ -32,6 +32,12 @@ def get_monuments_story(points, l_opts, s_stories,lda_model, selected = None , t
                                 1,
                                 pulp.LpInteger)
 
+    s_y = pulp.LpVariable.dicts("selected_stories",
+                                points,
+                                0,
+                                1,
+                                pulp.LpInteger)
+
 
     summary_selection = pulp.LpProblem("story selection problem",pulp.LpMaximize)
 
@@ -39,14 +45,15 @@ def get_monuments_story(points, l_opts, s_stories,lda_model, selected = None , t
     # Objective Function.
     # In objective function, just change what type of information is to be used.
 
-    summary_selection += sum([ sum([ ((s_x[i][j]*s_stories[i][j])) for j in s_sequence ]) for i in points])
+    summary_selection += sum([ s_y[i]*sum([ ((s_x[i][j]*s_stories[i][j])) for j in s_sequence ]) for i in points])
     if selected:
-        pass
-        #summary_selection += -1*sum([ sum([s_x[i][j]*compute_distance(lda_model, topic_dist[selected][j],topic_dist[i][j]) for j in s_sequence])  for i in points ])
+        summary_selection += -s_y[i]*sum([ sum([s_x[i][j]*compute_distance(lda_model, topic_dist[selected][j],topic_dist[i][j]) for j in s_sequence])  for i in points ])
     # summary_selection += sum([ sum([ ((s_x[i][j]*summary_information(content_summaries[i][j], "length_based")) ) for j in s_sequence ]) for i in edges])
     # Following are the constraints
     for i in s_x:
-        summary_selection += (sum([ s_x[i][j] for j in s_sequence ]) == 1)
+        summary_selection += (sum([ s_x[i][j] for j in s_sequence ]) <= 1)
+
+    summary_selection += (sum([ s_y[i] for i in points ])) >= len(points)
 
     # For this constraint always length is used, doesn't matter if Information above is based on content
     for i in s_x:
@@ -66,11 +73,11 @@ def build_stories(points, l_opts, s_stories , s_x, s_sequence, stories):
     final_time = {}
     for i in s_x:
         for j in s_sequence:
-            # print s_x[i][j].value(),
+            print s_x[i][j].value(),
             if (int(s_x[i][j].value())==1):
                 final_summary[i] = str(stories[i][j])
                 final_time[i] = s_stories[i][j]
-        # print 
+        print 
 
     for i in s_x:
         if i not in final_summary.keys():
@@ -99,8 +106,8 @@ def solve_lp_for_stories(l_opts = {}, stories = defaultdict(list) ,lda_model = N
 
         for j in xrange(0,max_num_s):
             s_stories[i][j] = summary_information(stories[i][j])
-            # print l_opts[i], s_stories[i][j],
-        # print 
+            print l_opts[i], s_stories[i][j],
+        print '========================='
     
         tot += l_opts[i]
 
