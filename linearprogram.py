@@ -56,9 +56,11 @@ def build_stories(points, l_opts, s_stories, s_x, s_sequence, stories):
     final_time = {}
     for i in s_x:
         for j in s_sequence:
+            print s_x[i][j].value()
             if (int(s_x[i][j].value())==1):
                 final_summary[i] = str(stories[i][j])
                 final_time[i] = s_stories[i][j]
+        print 
 
     for i in s_x:
         if i not in final_summary.keys():

@@ -16,11 +16,14 @@ if __name__ == '__main__':
 	detection = monument_time_final.keys()
 	lda_model = build_lda('data/stories/story_data.dat', num_topics = 50)
 
+	lengths = ['short','long']
+
 	word_dist = {}
-	stories = {}
+	stories = defaultdict(list)
 	for name in detection:
-		word_dist[name], story = get_lda_probs(lda_model, 'data/stories/'+name+'.dat')
-		stories[name] = [story]
+		for j in lengths:
+			word_dist[name], story = get_lda_probs(lda_model, 'data/stories/'+j+'/'+name+'.dat')
+			stories[name].append(story)
 
 	dissimilar_vals = find_pairwise_dissimilar(lda_model, word_dist.values(), word_dist.keys())
 	monument1, monument2 = find_most_dissimilar(dissimilar_vals)
@@ -70,7 +73,7 @@ if __name__ == '__main__':
 		if p[0] == selected and dissimilar_vals[p] < 0.315673248997 and p[1] != selected:
 			print p[1], dissimilar_vals[p]
 
-	print solve_lp_for_stories(monument_time_final, stories, 1)
+	print solve_lp_for_stories(monument_time_final, stories, len(lengths))
 
 
 
