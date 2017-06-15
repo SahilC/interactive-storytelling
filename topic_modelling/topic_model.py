@@ -68,19 +68,19 @@ def find_most_dissimilar(disimilar_values):
 			max_val = disimilar_values[k]
 			v = k
 			
+	# Average similarity between stories 0.315673248997
 	if max_val < 0.315673248997:
 		v = (None,None)
 	return v
 
-def find_pairwise_dissimilar(lda_model, topic_dist, names):
+def find_pairwise_dissimilar(lda_model, topic_dist, names, used_keys =[]):
 	pairs = list(itertools.product(names,repeat=2))
 	pairs_models = list(itertools.product(topic_dist, repeat=2))
 	disimilar_values = {}
 	for p in xrange(len(pairs)):
-		# print pairs[p]
-		val = compute_distance(lda_model,*pairs_models[p])
-		# Average similarity between stories 0.315673248997
-		disimilar_values[pairs[p]] = val
+		if pairs[p][0] not in used_keys and pairs[p][1] not in used_keys:
+			val = compute_distance(lda_model,*pairs_models[p])
+			disimilar_values[pairs[p]] = val
 
 	return disimilar_values
 	
