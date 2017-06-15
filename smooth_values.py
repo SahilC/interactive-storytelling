@@ -1,5 +1,6 @@
 from collections import defaultdict
 from collections import Counter
+from itertools import groupby
 
 # Mapping of merged interest points
 story_mapping = {
@@ -89,5 +90,17 @@ def smooth_values(file_name = 'data/FILE0573.MOV.txt', sampling_rate = 5):
 			monument_time_final[i]*= (sampling_rate / 24.0)
 			tot += monument_time_final[i]
 
-	print detection2
-	return monument_time_final
+	# print detection2
+	grouped_L = []
+	for k,g in groupby(detection2):
+		val = sum(1 for i in g)
+		if val > 10:
+			if len(grouped_L) > 0 and grouped_L[-1][0] == k:
+				grouped_L[-1][1] += val
+			else:
+				grouped_L.append([k, val])
+	grouped = []
+	for (k,v) in grouped_L:
+		grouped.append(k, v*sampling_rate/24.0)
+
+	return monument_time_final, grouped

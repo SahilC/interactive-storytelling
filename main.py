@@ -12,8 +12,7 @@ from topic_model import *
 from smooth_values import smooth_values
 
 if __name__ == '__main__':
-	monument_time_final = smooth_values()
-	print monument_time_final
+	monument_time_final, grouped = smooth_values()
 	detection = monument_time_final.keys()
 	lda_model = build_lda('data/stories/story_data.dat', num_topics = 50)
 
