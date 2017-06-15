@@ -15,6 +15,10 @@ def summary_information(summary):
     val = len(summary.split())/time_taken_to_speak_one_word
     return val
 
+def greedy_solver(grouped_L, idx):
+    # for i in idx:
+    return None
+
 def get_monuments_story(points, l_opts, s_stories,lda_model, selected = None , topic_dist = {}, max_num_s = 3):
     # This function solves the LP
     # as formulated in the report
