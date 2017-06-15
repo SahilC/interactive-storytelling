@@ -9,14 +9,32 @@ from collections import defaultdict
 sys.path.append('topic_modelling/')
 
 from topic_model import *
+from util import *
 
 def summary_information(summary):
     time_taken_to_speak_one_word = 2.616
     val = len(summary.split())/time_taken_to_speak_one_word
     return val
 
-def greedy_solver(grouped_L, idx):
-    # for i in idx:
+def greedy_solver(lda_model, word_dist, stories, generic_word_dist, grouped_L, idx):
+    for i in idx:
+        m1 = grouped_L[i-1][0]
+        m2 = grouped_L[i+1][0]
+        print 'GAP:',i
+        flag = True
+        for j in generic_word_dist.keys():
+            val1 = compute_distance(lda_model, word_dist[m1][-1], generic_word_dist[j][-1])
+            val2 = compute_distance(lda_model, word_dist[m2][-1], generic_word_dist[j][-1])
+            if val1 < 0.3 and val2 < 0.3 and summary_information(stories[j][-1]) < grouped_L[i][1]:
+                print stories[j][-1]
+                flag = False
+                break
+        if flag:
+            selected = form_question(lda_model, generic_word_dist)
+            print stories[selected][-1]
+            print '==========================='
+
+
     return None
 
 def get_monuments_story(points, l_opts, s_stories,lda_model, selected = None , topic_dist = {}, max_num_s = 3):

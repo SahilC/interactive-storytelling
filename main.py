@@ -8,10 +8,10 @@ sys.path.append('chowmein/chowmein')
 
 from label_topic import *
 from linalg2 import *
-from topic_model import *
-from util import *
 from smooth_values import smooth_values
 from smooth_values import process_nodetects
+from topic_model import *
+from util import *
 
 # Settings for code
 num_topics = 50
@@ -30,21 +30,22 @@ if __name__ == '__main__':
 
 	word_dist, stories = calculate_lda_probs(lda_model, detection, lengths)
 
+	generic_word_dist = defaultdict(list)
 	for j in filler_types:
 		for name in os.listdir('data/stories/'+j+'/'):
 			prob, story = get_lda_probs(lda_model, 'data/stories/'+j+'/'+name)
-			word_dist[name].append(prob)
+			generic_word_dist[name].append(prob)
 			stories[name].append(story)
 
-	selected = form_question(lda_model, word_dist)
+	# selected = form_question(lda_model, word_dist)
 
 	# for p in dissimilar_vals.keys():
 	# 	if p[0] == selected and dissimilar_vals[p] < 0.315673248997 and p[1] != selected:
 	# 		print p[1], dissimilar_vals[p]
 
-	print solve_lp_for_stories(monument_time_final, stories, lda_model, selected, word_dist, len(lengths))
+	# print solve_lp_for_stories(monument_time_final, stories, lda_model, selected, word_dist, len(lengths))
 
-	# print greedy_solver(grouped_L, idx)
+	print greedy_solver(lda_model, word_dist, stories, generic_word_dist, grouped_L, idx)
 
 
 
