@@ -25,6 +25,20 @@ story_mapping = {
 		'shahihammam':'ranimahal',
 }
 
+def process_nodetects(grouped_L, sampling_rate = 5):
+	idx = []
+	i = 0
+	for (k,v) in grouped_L:
+		if k == 'NoDetect' and v > 10:
+			idx.append(i)
+		i += 1
+
+	idx_monument = {}
+	for i in idx:
+		if grouped_L[i+1][0] == grouped_L[i-1][0]:
+			idx_monument[grouped_L[i-1][0]] = i
+	return idx, idx_monument
+
 def smooth_values(file_name = 'data/FILE0573.MOV.txt', sampling_rate = 5):
 	
 	monument_time = defaultdict(int)
@@ -96,11 +110,7 @@ def smooth_values(file_name = 'data/FILE0573.MOV.txt', sampling_rate = 5):
 		val = sum(1 for i in g)
 		if val > 10:
 			if len(grouped_L) > 0 and grouped_L[-1][0] == k:
-				grouped_L[-1][1] += val
+				grouped_L[-1][1] += (sampling_rate / 24.0)*val
 			else:
-				grouped_L.append([k, val])
-	grouped = []
-	for (k,v) in grouped_L:
-		grouped.append(k, v*sampling_rate/24.0)
-
-	return monument_time_final, grouped
+				grouped_L.append([k, (sampling_rate / 24.0)*val])
+	return monument_time_final, grouped_L

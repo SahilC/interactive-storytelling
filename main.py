@@ -10,9 +10,15 @@ from label_topic import *
 from linalg2 import *
 from topic_model import *
 from smooth_values import smooth_values
+from smooth_values import process_nodetects
 
 if __name__ == '__main__':
-	monument_time_final, grouped = smooth_values()
+	monument_time_final, grouped_L = smooth_values()
+	idx, idx_monument = process_nodetects(grouped_L)
+
+	for i in idx_monument.keys():
+		monument_time_final[i] += grouped_L[idx_monument[i]][1]
+
 	detection = monument_time_final.keys()
 	lda_model = build_lda('data/stories/story_data.dat', num_topics = 50)
 

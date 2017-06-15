@@ -100,7 +100,7 @@ def solve_lp_for_stories(l_opts = {}, stories = defaultdict(list) ,lda_model = N
         for j in xrange(max_num_s):
             s_stories[i][j] = summary_information(stories[points[i]][j])
             t_stories[i][j] = summary_information(stories[points[i]][j])
-            # print l_opts[points[i]], s_stories[i][j],
+            # print points[i],l_opts[points[i]], s_stories[i][j]
         # print '========================='
     
         # tot += l_opts[i]
