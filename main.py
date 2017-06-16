@@ -20,7 +20,7 @@ filler_types = ['kings','generic']
 
 if __name__ == '__main__':
 	monument_time_final, grouped_L = smooth_values()
-	idx, idx_monument = process_nodetects(grouped_L)
+	idx, idx_monument, stories_order, story_idx = process_nodetects(grouped_L)
 
 	for i in idx_monument.keys():
 		monument_time_final[i] += grouped_L[idx_monument[i]][1]
@@ -46,7 +46,9 @@ if __name__ == '__main__':
 
 	final_monument_stories = solve_lp_for_stories(monument_time_final, stories, lda_model, selected, word_dist, len(lengths))
 
-	print greedy_solver(lda_model, word_dist, stories, generic_word_dist, grouped_L, idx)
+	# print stories_order
+
+	print greedy_solver(lda_model, stories_order, story_idx, word_dist, stories, generic_word_dist, grouped_L, idx)
 
 
 

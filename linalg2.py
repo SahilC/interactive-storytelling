@@ -16,11 +16,16 @@ def summary_information(summary):
     val = len(summary.split())/time_taken_to_speak_one_word
     return val
 
-def greedy_solver(lda_model, word_dist, stories, generic_word_dist, grouped_L, idx):
+def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic_word_dist, grouped_L, idx):
     used_stories = []
     for i in idx:
-        m1 = grouped_L[i-1][0]
-        m2 = grouped_L[i+1][0]
+        for j in xrange(len(story_idx)-1):
+            if story_idx[j] < i and i < story_idx[j+1]:
+                m1 =  grouped_L[story_idx[j]][0]
+                m2 =  grouped_L[story_idx[j+1]][0]
+                break
+        # m1 = grouped_L[i-1][0]
+        # m2 = grouped_L[i+1][0]
         print 'GAP:',i
         flag = True
         for j in generic_word_dist.keys():

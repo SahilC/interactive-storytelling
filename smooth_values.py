@@ -28,8 +28,14 @@ story_mapping = {
 def process_nodetects(grouped_L, sampling_rate = 5):
 	idx = []
 	i = 0
+
+	stories_order = []
+	story_idx = []		
 	for (k,v) in grouped_L:
-		if k == 'NoDetect' and v > 10:
+		if k not in stories_order and k != 'NoDetect':
+			stories_order.append(k)
+			story_idx.append(i)
+		elif k == 'NoDetect' and v > 10:
 			idx.append(i)
 		i += 1
 
@@ -37,7 +43,7 @@ def process_nodetects(grouped_L, sampling_rate = 5):
 	for i in idx:
 		if grouped_L[i+1][0] == grouped_L[i-1][0]:
 			idx_monument[grouped_L[i-1][0]] = i
-	return idx, idx_monument
+	return idx, idx_monument, stories_order, story_idx
 
 def smooth_values(file_name = 'data/FILE0573.MOV.txt', sampling_rate = 5):
 	
