@@ -32,7 +32,7 @@ def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic
             val1 = compute_distance(lda_model, word_dist[m1][-1], generic_word_dist[j][-1])
             val2 = compute_distance(lda_model, word_dist[m2][-1], generic_word_dist[j][-1])
             if val1 < 0.3 and val2 < 0.3 and summary_information(stories[j][-1]) < grouped_L[i][1] and j not in used_stories:
-                print stories[j][-1]
+                # print stories[j][-1]
                 used_stories.append(j)
                 flag = False
                 break
