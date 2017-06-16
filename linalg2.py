@@ -18,6 +18,8 @@ def summary_information(summary):
 
 def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic_word_dist, grouped_L, idx):
     used_stories = []
+    selected_stories = []
+    new_order = []
     for i in idx:
         for j in xrange(len(story_idx)-1):
             if story_idx[j] < i and i < story_idx[j+1]:
@@ -46,7 +48,7 @@ def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic
             # print '==========================='
 
 
-    return None
+    return used_stories
 
 def get_monuments_story(points, l_opts, s_stories,lda_model, selected = None , topic_dist = {}, max_num_s = 3):
     # This function solves the LP

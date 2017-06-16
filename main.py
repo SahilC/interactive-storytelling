@@ -48,8 +48,19 @@ if __name__ == '__main__':
 
 	# print stories_order
 
-	print greedy_solver(lda_model, stories_order, story_idx, word_dist, stories, generic_word_dist, grouped_L, idx)
-	
+	selected_stories = greedy_solver(lda_model, stories_order, story_idx, word_dist, stories, generic_word_dist, grouped_L, idx)
+
+	story = ''
+	gap = 0
+	for i in xrange(len(grouped_L)):
+		if i in story_idx:
+			 story += stories[grouped_L[i][0]][-1]
+		if i in idx:
+			story += stories[selected_stories[gap]][-1]
+			gap += 1
+	print story 
+
+			
 	# print("\nTopical labels:")
 	# print("-" * 20)
 
