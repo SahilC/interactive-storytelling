@@ -32,13 +32,13 @@ def greedy_solver(lda_model, word_dist, stories, generic_word_dist, grouped_L, i
                 flag = False
                 break
         if flag:
-            print m1
-            print m2
-            print used_stories
+            # print m1
+            # print m2
+            # print used_stories
             selected = form_question(lda_model, generic_word_dist, used_stories)
             used_stories.append(selected)
-            print stories[selected][-1]
-            print '==========================='
+            # print stories[selected][-1]
+            # print '==========================='
 
 
     return None

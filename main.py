@@ -37,13 +37,14 @@ if __name__ == '__main__':
 			generic_word_dist[name].append(prob)
 			stories[name].append(story)
 
+	selected = None
 	# selected = form_question(lda_model, word_dist)
 
 	# for p in dissimilar_vals.keys():
 	# 	if p[0] == selected and dissimilar_vals[p] < 0.315673248997 and p[1] != selected:
 	# 		print p[1], dissimilar_vals[p]
 
-	# print solve_lp_for_stories(monument_time_final, stories, lda_model, selected, word_dist, len(lengths))
+	final_monument_stories = solve_lp_for_stories(monument_time_final, stories, lda_model, selected, word_dist, len(lengths))
 
 	print greedy_solver(lda_model, word_dist, stories, generic_word_dist, grouped_L, idx)
 
