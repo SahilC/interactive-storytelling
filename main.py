@@ -49,11 +49,6 @@ if __name__ == '__main__':
 	# print stories_order
 
 	print greedy_solver(lda_model, stories_order, story_idx, word_dist, stories, generic_word_dist, grouped_L, idx)
-
-
-
-
-
 	
 	# print("\nTopical labels:")
 	# print("-" * 20)
