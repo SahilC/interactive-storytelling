@@ -18,7 +18,7 @@ num_topics = 50
 lengths = ['short','long']
 filler_types = ['kings','generic']
 
-if __name__ == '__main__':
+def build_stories(file_name):
 	monument_time_final, grouped_L = smooth_values()
 	idx, idx_monument, stories_order, story_idx = process_nodetects(grouped_L)
 
@@ -58,8 +58,11 @@ if __name__ == '__main__':
 		if i in idx:
 			story += stories[selected_stories[gap]][-1]
 			gap += 1
-	print story 
+	print story
+	return story 
 
+if __name__ == '__main__':
+	build_stories('data/FILE0573.MOV.txt')
 			
 	# print("\nTopical labels:")
 	# print("-" * 20)
