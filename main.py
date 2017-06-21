@@ -22,14 +22,19 @@ def build_stories(file_name):
 	monument_time_final, grouped_L = smooth_values()
 	idx, idx_monument, stories_order, story_idx = process_nodetects(grouped_L)
 
+	# Add the smooth times to monuments time.
 	for i in idx_monument.keys():
 		monument_time_final[i] += grouped_L[idx_monument[i]][1]
 
 	detection = monument_time_final.keys()
+
+	# Build LDA model for our story data
 	lda_model = build_lda('data/stories/story_data.dat', num_topics = num_topics)
 
+	# Compute the LDA probabilites for each of the stories
 	word_dist, stories = calculate_lda_probs(lda_model, detection, lengths)
 
+	# Populate Datastructures with the LDA probs
 	generic_word_dist = defaultdict(list)
 	for j in filler_types:
 		for name in os.listdir('data/stories/'+j+'/'):
@@ -44,10 +49,11 @@ def build_stories(file_name):
 	# 	if p[0] == selected and dissimilar_vals[p] < 0.315673248997 and p[1] != selected:
 	# 		print p[1], dissimilar_vals[p]
 
+	# Solve LP to select stories about the monuments
 	final_monument_stories = solve_lp_for_stories(monument_time_final, stories, lda_model, selected, word_dist, len(lengths))
 
 	# print stories_order
-
+	# Greedily solve for solution to the Q & A
 	selected_stories = greedy_solver(lda_model, stories_order, story_idx, word_dist, stories, generic_word_dist, grouped_L, idx)
 
 	story = ''
