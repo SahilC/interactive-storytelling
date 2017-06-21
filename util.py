@@ -48,13 +48,7 @@ def form_question(lda_model, word_dist,used_keys = []):
 	m2 = labels[word_dist[monument2][-1][idx2][0]]
 	r1 = random.randint(0,len(m1)-1)
 	r2 = random.randint(0,len(m2)-1)
-	
-	print word_dist[monument1][-1]
-	print word_dist[monument2][-1]
-	i = 0
-	for l in  labels:
-		print i,l
-		i += 1
+		
 	opt1 = ' '.join(m1[r1])
 	print '========================================'
 	opt2 = ' '.join(m2[r2])
