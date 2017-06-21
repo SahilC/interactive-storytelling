@@ -18,9 +18,9 @@ def summary_information(summary):
 
 def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic_word_dist, grouped_L, idx):
     used_stories = []
-    selected_stories = []
     new_order = []
     for i in idx:
+        possible_stories = []
         for j in xrange(len(story_idx)-1):
             if story_idx[j] < i and i < story_idx[j+1]:
                 m1 =  grouped_L[story_idx[j]][0]
@@ -28,21 +28,35 @@ def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic
                 break
         # m1 = grouped_L[i-1][0]
         # m2 = grouped_L[i+1][0]
+        # print m1
+        # print m2
         print 'GAP:',i
         flag = True
         for j in generic_word_dist.keys():
             val1 = compute_distance(lda_model, word_dist[m1][-1], generic_word_dist[j][-1])
             val2 = compute_distance(lda_model, word_dist[m2][-1], generic_word_dist[j][-1])
+            print j, summary_information(stories[j][-1]), grouped_L[i][1]
             if val1 < 0.3 and val2 < 0.3 and summary_information(stories[j][-1]) < grouped_L[i][1] and j not in used_stories:
                 # print stories[j][-1]
                 used_stories.append(j)
                 flag = False
                 break
+            elif summary_information(stories[j][-1]) < grouped_L[i][1]:
+                possible_stories.append(j)
         if flag:
             # print m1
             # print m2
             # print used_stories
-            selected = form_question(lda_model, generic_word_dist, used_stories)
+            # print len(used_stories)
+            if len(possible_stories) == 0:
+                selected = None
+            elif len(possible_stories) == 1:
+                if possible_stories[-1] not in used_stories:
+                    selected = possible_stories[-1]
+                else: 
+                    selected = None
+            else:
+                selected = form_question(lda_model, generic_word_dist, used_stories)
             used_stories.append(selected)
             # print stories[selected][-1]
             # print '==========================='

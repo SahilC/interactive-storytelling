@@ -55,14 +55,17 @@ def build_stories(file_name):
 	# print stories_order
 	# Greedily solve for solution to the Q & A
 	selected_stories = greedy_solver(lda_model, stories_order, story_idx, word_dist, stories, generic_word_dist, grouped_L, idx)
-
+	print selected_stories
 	story = ''
 	gap = 0
 	for i in xrange(len(grouped_L)):
 		if i in story_idx:
 			 story += stories[grouped_L[i][0]][-1]
 		if i in idx:
-			story += stories[selected_stories[gap]][-1]
+			if selected_stories[gap] != None:
+				story += stories[selected_stories[gap]][-1]
+			else:
+				story += "Silence occured....."
 			gap += 1
 	print story
 	return story 
