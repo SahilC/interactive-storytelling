@@ -55,9 +55,11 @@ def build_stories(file_name):
 	# print stories_order
 	# Greedily solve for solution to the Q & A
 	selected_stories, gap_fillers = greedy_solver(lda_model, stories_order, story_idx, word_dist, stories, generic_word_dist, grouped_L, idx)
-	print story_idx
-	print stories_order
-	print monument_time_final
+	
+	final_order = get_final_order(gap_fillers, story_idx, stories_order, monument_time_final)
+	# print story_idx
+	# print stories_order
+	# print monument_time_final
 	# story = ''
 	# gap = 0
 	# for i in xrange(len(grouped_L)):
@@ -70,7 +72,7 @@ def build_stories(file_name):
 	# 			story += "Silence occured....."
 	# 		gap += 1
 	# print story
-	return story 
+	return {'final':final_order ,'stories':stories}
 
 if __name__ == '__main__':
 	build_stories('data/FILE0573.MOV.txt')

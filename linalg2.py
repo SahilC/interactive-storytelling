@@ -16,6 +16,24 @@ def summary_information(summary):
     val = len(summary.split())/time_taken_to_speak_one_word
     return val
 
+def get_final_order(gap_fillers, story_idx, story_order, monument_time):
+    final_order = []
+    cumulative_time = 0
+    for j in xrange(len(story_idx)-1):
+        final_order.append({story_order[j]:cumulative_time})
+        cumulative_time += monument_time[story_order[j]]
+        for i in gap_fillers.keys():
+            if story_idx[j] < i and i < story_idx[j+1]:
+                temp = gap_fillers[i]['time']
+                gap_fillers[i]['time'] = cumulative_time
+
+                final_order.append(gap_fillers[i])
+                cumulative_time += temp
+    # print "Final Story time:"
+    # print cumulative_time
+
+    return final_order
+
 def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic_word_dist, grouped_L, idx):
     used_stories = []
     new_order = []
@@ -41,7 +59,7 @@ def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic
             if val1 < 0.3 and val2 < 0.3 and summary_information(stories[j][-1]) < grouped_L[i][1] and j not in used_stories:
                 # print stories[j][-1]
                 used_stories.append(j)
-                gap_fillers[i] = {'story':j,'type':'story'}
+                gap_fillers[i] = {'story':j,'type':'story','time':summary_information(stories[j][-1])}
                 flag = False
                 break
             elif summary_information(stories[j][-1]) < grouped_L[i][1]:
@@ -58,15 +76,14 @@ def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic
                     selected = possible_stories[-1]
                 else: 
                     selected = None
-                gap_fillers[i] = {'story':selected,'type':'story'}
+                gap_fillers[i] = {'story':selected,'type':'story','time':grouped_L[i][1]}
             else:
                 selected = form_question(lda_model, labels, generic_word_dist, used_stories)
-                gap_fillers[i] = {'story':selected,'type':'question'}
+                gap_fillers[i] = {'story':selected,'type':'question','time':grouped_L[i][1]}
             used_stories.append(selected)
             # print stories[selected][-1]
             # print '==========================='
-
-
+    
     return used_stories, gap_fillers
 
 def get_monuments_story(points, l_opts, s_stories,lda_model, selected = None , topic_dist = {}, max_num_s = 3):

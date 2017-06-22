@@ -55,6 +55,9 @@ def form_question(lda_model, labels, word_dist,used_keys = []):
 	question['opt1'] = ' '.join(m1[r1])
 	print '========================================'
 	question['opt2'] = ' '.join(m2[r2])
+	question['m1'] = monument1
+	question['m2'] = monument2
+
 
 	# print 'Would you like to listen to a story about the '+ opt1 +' or the '+ opt2 +'?'
 	# opt_select = raw_input()
