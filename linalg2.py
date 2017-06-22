@@ -20,6 +20,7 @@ def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic
     used_stories = []
     new_order = []
     labels = get_labels_lda(lda_model)
+    gap_fillers = {}
     for i in idx:
         possible_stories = []
         for j in xrange(len(story_idx)-1):
@@ -31,7 +32,7 @@ def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic
         # m2 = grouped_L[i+1][0]
         # print m1
         # print m2
-        print 'GAP:',i
+        # print 'GAP:',i
         flag = True
         for j in generic_word_dist.keys():
             val1 = compute_distance(lda_model, word_dist[m1][-1], generic_word_dist[j][-1])
@@ -40,6 +41,7 @@ def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic
             if val1 < 0.3 and val2 < 0.3 and summary_information(stories[j][-1]) < grouped_L[i][1] and j not in used_stories:
                 # print stories[j][-1]
                 used_stories.append(j)
+                gap_fillers[i] = {'story':j,'type':'story'}
                 flag = False
                 break
             elif summary_information(stories[j][-1]) < grouped_L[i][1]:
@@ -56,14 +58,16 @@ def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic
                     selected = possible_stories[-1]
                 else: 
                     selected = None
+                gap_fillers[i] = {'story':selected,'type':'story'}
             else:
                 selected = form_question(lda_model, labels, generic_word_dist, used_stories)
+                gap_fillers[i] = {'story':selected,'type':'question'}
             used_stories.append(selected)
             # print stories[selected][-1]
             # print '==========================='
 
 
-    return used_stories
+    return used_stories, gap_fillers
 
 def get_monuments_story(points, l_opts, s_stories,lda_model, selected = None , topic_dist = {}, max_num_s = 3):
     # This function solves the LP

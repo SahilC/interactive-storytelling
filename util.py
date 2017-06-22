@@ -50,21 +50,23 @@ def form_question(lda_model, labels, word_dist,used_keys = []):
 	m2 = labels[word_dist[monument2][-1][idx2][0]]
 	r1 = random.randint(0,len(m1)-1)
 	r2 = random.randint(0,len(m2)-1)
-		
-	opt1 = ' '.join(m1[r1])
+	
+	question = {}	
+	question['opt1'] = ' '.join(m1[r1])
 	print '========================================'
-	opt2 = ' '.join(m2[r2])
-	print 'Would you like to listen to a story about the '+ opt1 +' or the '+ opt2 +'?'
-	opt_select = raw_input()
+	question['opt2'] = ' '.join(m2[r2])
 
-	selected = 0
-	if opt_select in opt1:
-		selected = monument1
+	# print 'Would you like to listen to a story about the '+ opt1 +' or the '+ opt2 +'?'
+	# opt_select = raw_input()
+
+	# selected = 0
+	# if opt_select in opt1:
+	# 	selected = monument1
 		
-	elif opt_select in opt2:
-		selected = monument2
+	# elif opt_select in opt2:
+	# 	selected = monument2
 
-	if selected == 0:
-		print 'Input valid option'
+	# if selected == 0:
+	# 	print 'Input valid option'
 
-	return selected
+	return question

@@ -25,24 +25,24 @@ story_mapping = {
 		'shahihammam':'ranimahal',
 }
 
-def process_nodetects(grouped_L, sampling_rate = 5):
+def process_nodetects(grouped_L, monument_time_final, sampling_rate = 5):
 	idx = []
+	idx_monument = {}
 	i = 0
-
 	stories_order = []
 	story_idx = []		
 	for (k,v) in grouped_L:
 		if k not in stories_order and k != 'NoDetect':
 			stories_order.append(k)
 			story_idx.append(i)
+		elif i < (len(grouped_L) - 1) and grouped_L[i+1][0] == grouped_L[i-1][0] and k == 'NoDetect':
+			monument_time_final[grouped_L[i-1][0]] += v
+		elif k == 'NoDetect' and v < 10:
+			monument_time_final[grouped_L[i-1][0]] += v
 		elif k == 'NoDetect' and v > 10:
 			idx.append(i)
 		i += 1
 
-	idx_monument = {}
-	for i in idx:
-		if grouped_L[i+1][0] == grouped_L[i-1][0]:
-			idx_monument[grouped_L[i-1][0]] = i
 	return idx, idx_monument, stories_order, story_idx
 
 def smooth_values(file_name = 'data/FILE0573.MOV.txt', sampling_rate = 5):

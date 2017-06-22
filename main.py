@@ -20,7 +20,7 @@ filler_types = ['kings','generic']
 
 def build_stories(file_name):
 	monument_time_final, grouped_L = smooth_values()
-	idx, idx_monument, stories_order, story_idx = process_nodetects(grouped_L)
+	idx, idx_monument, stories_order, story_idx = process_nodetects(grouped_L, monument_time_final)
 
 	# Add the smooth times to monuments time.
 	for i in idx_monument.keys():
@@ -54,20 +54,22 @@ def build_stories(file_name):
 
 	# print stories_order
 	# Greedily solve for solution to the Q & A
-	selected_stories = greedy_solver(lda_model, stories_order, story_idx, word_dist, stories, generic_word_dist, grouped_L, idx)
-	print selected_stories
-	story = ''
-	gap = 0
-	for i in xrange(len(grouped_L)):
-		if i in story_idx:
-			 story += stories[grouped_L[i][0]][-1]
-		if i in idx:
-			if selected_stories[gap] != None:
-				story += stories[selected_stories[gap]][-1]
-			else:
-				story += "Silence occured....."
-			gap += 1
-	print story
+	selected_stories, gap_fillers = greedy_solver(lda_model, stories_order, story_idx, word_dist, stories, generic_word_dist, grouped_L, idx)
+	print story_idx
+	print stories_order
+	print monument_time_final
+	# story = ''
+	# gap = 0
+	# for i in xrange(len(grouped_L)):
+	# 	if i in story_idx:
+	# 		 story += stories[grouped_L[i][0]][-1]
+	# 	if i in idx:
+	# 		if selected_stories[gap] != None:
+	# 			story += stories[selected_stories[gap]][-1]
+	# 		else:
+	# 			story += "Silence occured....."
+	# 		gap += 1
+	# print story
 	return story 
 
 if __name__ == '__main__':
