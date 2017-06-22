@@ -20,7 +20,7 @@ def get_final_order(gap_fillers, story_idx, story_order, monument_time):
     final_order = []
     cumulative_time = 0
     for j in xrange(len(story_idx)-1):
-        final_order.append({story_order[j]:cumulative_time})
+        final_order.append({'name':story_order[j],'time':cumulative_time,'type':'story'})
         cumulative_time += monument_time[story_order[j]]
         for i in gap_fillers.keys():
             if story_idx[j] < i and i < story_idx[j+1]:
