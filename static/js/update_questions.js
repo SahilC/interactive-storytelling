@@ -5,11 +5,11 @@ $(document).ready(function() {
                 contentType:'application/json',
                 data: JSON.stringify({file_name: 'data/FILE0573.MOV.txt'}),
                 success: function(response) {
-                    console.log(response);
-                    console.log('response');
+                    var result = JSON.parse(response);
+                    // console.log(result.stories)
+                    responsiveVoice.speak(result['stories']['balahissardarwaza'][1]);
                 },
                 error: function(error) {
-                    console.log(error);
                     console.log('error');
                 }
   });

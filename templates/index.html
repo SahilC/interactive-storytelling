@@ -3,10 +3,14 @@
 <head>
 </head>
 <body>
-<video  id="video_player" controls="controls" >
-	<source src="{{url_for('static', filename='FILE0573.MOV')}}" type="video/mp4">
-</video>
+		<video  id="video_player" controls="controls" >
+			<source src="{{url_for('static', filename='FILE0573.MOV')}}" type="video/mp4">
+		</video>
+        <div id="audio">
+        </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/responsivevoice.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static', filename='js/responsive.js')}}"></script>
 <script src="{{url_for('static', filename='js/update_questions.js')}}"></script>
 </html>
