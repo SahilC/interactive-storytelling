@@ -11,10 +11,10 @@ app = Flask(__name__)
 def hello_world():
     return render_template('index.html')
 
-@app.route('/stories',methods=['GET'])
+@app.route('/stories',methods=['GET','POST'])
 def stories():
 	print 'GOT IT'
-	file_name = request.args.get('file_name')
+	file_name = json.loads(request.data).get('file_name')
 	story = build_stories(file_name)
 	return json.dumps(story)
 

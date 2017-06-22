@@ -1,5 +1,16 @@
 $(document).ready(function() {
-  $.get("http://127.0.0.1:5000/stories").done(function(data) {
-       alert("YO");
+  $.ajax( {
+                url: '/stories' ,
+                method: 'POST',
+                contentType:'application/json',
+                data: JSON.stringify({file_name: 'data/FILE0573.MOV.txt'}),
+                success: function(response) {
+                    console.log(response);
+                    console.log('response');
+                },
+                error: function(error) {
+                    console.log(error);
+                    console.log('error');
+                }
   });
 });
