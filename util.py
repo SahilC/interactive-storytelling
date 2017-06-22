@@ -38,9 +38,9 @@ def form_question(lda_model, labels, word_dist,used_keys = []):
 	dissimilar_vals = find_pairwise_dissimilar(lda_model, [j[-1] for j in word_dist.values()], word_dist.keys(), used_keys)
 	monument1, monument2 = find_most_dissimilar(dissimilar_vals)
 
-	print monument1
-	print monument2
-	print '======================================='
+	# print monument1
+	# print monument2
+	# print '======================================='
 	# Find maximum disimilar topics for the topics with the maximum magnitude -- Need to experiment
 	_, idx1 = np.argmax(word_dist[monument1][-1],axis=0)
 	_, idx2 = np.argmax(word_dist[monument2][-1],axis=0)
@@ -53,7 +53,7 @@ def form_question(lda_model, labels, word_dist,used_keys = []):
 	
 	question = {}	
 	question['opt1'] = ' '.join(m1[r1])
-	print '========================================'
+	# print '========================================'
 	question['opt2'] = ' '.join(m2[r2])
 	question['m1'] = monument1
 	question['m2'] = monument2

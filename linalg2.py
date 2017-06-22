@@ -55,7 +55,7 @@ def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic
         for j in generic_word_dist.keys():
             val1 = compute_distance(lda_model, word_dist[m1][-1], generic_word_dist[j][-1])
             val2 = compute_distance(lda_model, word_dist[m2][-1], generic_word_dist[j][-1])
-            print j, summary_information(stories[j][-1]), grouped_L[i][1]
+            # print j, summary_information(stories[j][-1]), grouped_L[i][1]
             if val1 < 0.3 and val2 < 0.3 and summary_information(stories[j][-1]) < grouped_L[i][1] and j not in used_stories:
                 # print stories[j][-1]
                 used_stories.append(j)
@@ -156,7 +156,7 @@ def build_stories(points, l_opts, s_stories , s_x, max_num_s, stories):
     for i in points:
         lp_error.append(np.int32(np.abs(l_opts[i] - final_time[i])))
 
-    print("STORY SUMMED_ERROR : " + str(lp_error))
+    # print("STORY SUMMED_ERROR : " + str(lp_error))
     return final_summary
 
 def solve_lp_for_stories(l_opts = {}, stories = defaultdict(list) ,lda_model = None, selected = None, topic_distances = {}, max_num_s = 3):

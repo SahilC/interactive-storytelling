@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import request
+from flask import render_template
 from main import build_stories
 
 import json
@@ -8,10 +9,11 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hello, World!'
+    return render_template('index.html')
 
-@app.route('/stories')
+@app.route('/stories',methods=['GET'])
 def stories():
+	print 'GOT IT'
 	file_name = request.args.get('file_name')
 	story = build_stories(file_name)
 	return json.dumps(story)
