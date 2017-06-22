@@ -26,7 +26,7 @@ function check_and_wait(result) {
             var time = (new Date().getTime() - start)/(1000.0);
             if(  time > result.final[i].time ) {
                 if(result.final[i].type == 'story') {
-                    responsiveVoice.speak(result.stories[result.final[i].name][0]);
+                    // responsiveVoice.speak(result.stories[result.final[i].name][0]);
                     console.log(result.final[i].name);
                 } else {
                     vid.pause()
@@ -49,17 +49,18 @@ function check_and_wait(result) {
                       console.log(result.final);
                       if (result.final[i].story.opt1.includes(inputValue)) {
                         vid.play();
-                        responsiveVoice.speak(result.stories[result.final[i].story.m1][0]);
+                        // responsiveVoice.speak(result.stories[result.final[i].story.m1][0]);
                         console.log(result.final[i].story.m1);
+                        i += 1;
                       } else {
                         vid.play();
-                        responsiveVoice.speak(result.stories[result.final[i].story.m2][0]);
+                        // responsiveVoice.speak(result.stories[result.final[i].story.m2][0]);
                         console.log(result.final[i].story.m2);
+                        i += 1;
                       }
                       // swal("Nice!", "You wrote: " + inputValue, "success");
                     });
                 }
-                i += 1;
             } else { 
                 return false; 
             }
