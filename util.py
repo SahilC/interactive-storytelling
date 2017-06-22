@@ -18,18 +18,7 @@ def calculate_lda_probs(lda_model, detection, lengths):
 			stories[name].append(story)
 	return word_dist, stories
 
-
-def form_question(lda_model, word_dist,used_keys = []):
-	dissimilar_vals = find_pairwise_dissimilar(lda_model, [j[-1] for j in word_dist.values()], word_dist.keys(), used_keys)
-	monument1, monument2 = find_most_dissimilar(dissimilar_vals)
-
-	print monument1
-	print monument2
-	print '======================================='
-	# Find maximum disimilar topics for the topics with the maximum magnitude -- Need to experiment
-	_, idx1 = np.argmax(word_dist[monument1][-1],axis=0)
-	_, idx2 = np.argmax(word_dist[monument2][-1],axis=0)
-
+def get_labels_lda(lda_model):
 	parser = create_parser()
 
 	args = parser.parse_args()
@@ -43,7 +32,20 @@ def form_question(lda_model, word_dist,used_keys = []):
 		n_labels=args.n_labels,
 		lda_random_state=args.lda_random_state,
 		lda_n_iter=args.lda_n_iter)
+	return labels
 
+def form_question(lda_model, labels, word_dist,used_keys = []):
+	dissimilar_vals = find_pairwise_dissimilar(lda_model, [j[-1] for j in word_dist.values()], word_dist.keys(), used_keys)
+	monument1, monument2 = find_most_dissimilar(dissimilar_vals)
+
+	print monument1
+	print monument2
+	print '======================================='
+	# Find maximum disimilar topics for the topics with the maximum magnitude -- Need to experiment
+	_, idx1 = np.argmax(word_dist[monument1][-1],axis=0)
+	_, idx2 = np.argmax(word_dist[monument2][-1],axis=0)
+
+	
 	m1 = labels[word_dist[monument1][-1][idx1][0]]
 	m2 = labels[word_dist[monument2][-1][idx2][0]]
 	r1 = random.randint(0,len(m1)-1)

@@ -19,6 +19,7 @@ def summary_information(summary):
 def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic_word_dist, grouped_L, idx):
     used_stories = []
     new_order = []
+    labels = get_labels_lda(lda_model)
     for i in idx:
         possible_stories = []
         for j in xrange(len(story_idx)-1):
@@ -56,7 +57,7 @@ def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic
                 else: 
                     selected = None
             else:
-                selected = form_question(lda_model, generic_word_dist, used_stories)
+                selected = form_question(lda_model, labels, generic_word_dist, used_stories)
             used_stories.append(selected)
             # print stories[selected][-1]
             # print '==========================='
