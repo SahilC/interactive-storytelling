@@ -11,6 +11,15 @@ app = Flask(__name__)
 def hello_world():
     return render_template('index.html')
 
+@app.route('/update_stories',methods=['GET','POST'])
+def update_stories():
+	print 'Yo'
+	up_name = json.loads(request.data).get('upvoted')
+	down_name = json.loads(request.data).get('downvoted')
+	print up_name.split(','),down_name.split(',')
+	# story = build_stories(file_name)
+	return json.dumps({})
+
 @app.route('/stories',methods=['GET','POST'])
 def stories():
 	print 'GOT IT'
@@ -20,4 +29,8 @@ def stories():
 
 
 if __name__ == '__main__':
-	app.run(host="127.0.0.1")
+	while True:
+		try:
+			app.run(host="127.0.0.1",use_reloader = False)
+		except:
+			pass
