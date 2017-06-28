@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 from flask import render_template
 from main import build_stories
+from main import very_bad_code
 
 import json
 
@@ -14,11 +15,12 @@ def hello_world():
 @app.route('/update_stories',methods=['GET','POST'])
 def update_stories():
 	print 'Yo'
+	file_name = json.loads(request.data).get('file_name')
 	up_name = json.loads(request.data).get('upvoted')
 	down_name = json.loads(request.data).get('downvoted')
-	print up_name.split(','),down_name.split(',')
-	# story = build_stories(file_name)
-	
+	upvoted =  up_name.split(',')
+	downvoted = down_name.split(',')
+	story = very_bad_code(file_name,upvoted, downvoted)
 	return json.dumps({})
 
 @app.route('/stories',methods=['GET','POST'])

@@ -86,7 +86,7 @@ $(document).ready(function() {
           url: '/update_stories' ,
           method: 'POST',
           contentType:'application/json',
-          data: JSON.stringify({upvoted: upvoted, downvoted: downvoted}),
+          data: JSON.stringify({file_name: 'data/FILE0573.MOV.txt',upvoted: upvoted, downvoted: downvoted}),
           success: function(response) {
               var result = JSON.parse(response);
               

@@ -19,19 +19,16 @@ def calculate_lda_probs(lda_model, detection, lengths):
 	return word_dist, stories
 
 def get_labels_lda(lda_model):
-	parser = create_parser()
-
-	args = parser.parse_args()
-	labels = get_topic_labels(corpus_path=args.line_corpus_path,
-		n_topics=args.n_topics,
-		n_top_words=args.n_top_words,
-		preprocessing_steps=args.preprocessing,
-		n_cand_labels=args.n_cand_labels,
-		label_min_df=args.label_min_df,
-		label_tags=args.label_tags,
-		n_labels=args.n_labels,
-		lda_random_state=args.lda_random_state,
-		lda_n_iter=args.lda_n_iter)
+	labels = get_topic_labels(corpus_path='data/stories/story_data.dat',
+		n_topics=50,
+		n_top_words=100,
+		preprocessing_steps=['wordlen', 'stem', 'tag'],
+		n_cand_labels=100,
+		label_min_df=2,
+		label_tags=['NN,NN', 'JJ,NN'],
+		n_labels=10,
+		lda_random_state=12345,
+		lda_n_iter=400)
 	return labels
 
 def form_question(lda_model, labels, word_dist,used_keys = []):
