@@ -53,24 +53,29 @@ def lp_gap_solver(lda_model, story, story_idx, word_dist, generic_word_dist, gro
     keys = generic_word_dist.keys()
     for i in xrange(len(idx)):
         for j in xrange(len(keys)):
-            s_stories[i][j] = (1-find_distance(lda_model, word_dist, generic_word_dist, possible_stories[i][1],possible_stories[i][2], keys[j])) 
-            for k in upvoted:
-                if k != '':
-                    if k in word_dist.keys():
-                        d1 = word_dist[k][-1]
-                    else:
-                        d1 = generic_word_dist[k][-1]
-                    print d1
-                    print generic_word_dist[keys[j]][-1]
-                    s_stories[i][j] += (1-compute_distance(lda_model, d1, generic_word_dist[keys[j]][-1]))  
-            for k  in downvoted:
-                d1 = ''
-                if k != '':
-                    if k in word_dist.keys():
-                        d1 = word_dist[k][-1]
-                    else:
-                        d1 = generic_word_dist[k][-1]
-                    s_stories[i][j] += compute_distance(lda_model, d1, generic_word_dist[keys[j]][-1])
+            s_stories[i][j] = (5-find_distance(lda_model, word_dist, generic_word_dist, possible_stories[i][1],possible_stories[i][2], keys[j])) 
+            # for k in upvoted:
+            #     if k != '':
+            #         if k in word_dist.keys():
+            #             d1 = word_dist[k][-1]
+            #         else:
+            #             d1 = generic_word_dist[k][-1]
+            #         # print d1
+            #         # print generic_word_dist[keys[j]][-1]
+            #         print summary_information(story[keys[j]][-1])
+            #         print possible_stories[i][-1]
+            #         print '========================='
+            #         s_stories[i][j] += (1-compute_distance(lda_model, d1, generic_word_dist[keys[j]][-1]))  
+            # for k  in downvoted:
+            #     d1 = ''
+            #     if k != '':
+            #         if k in word_dist.keys():
+            #             d1 = word_dist[k][-1]
+            #         else:
+            #             d1 = generic_word_dist[k][-1]
+            #         s_stories[i][j] += compute_distance(lda_model, d1, generic_word_dist[keys[j]][-1])
+            print (summary_information(story[keys[j]][-1]))
+            print possible_stories[i][-1]
             constraints.append((summary_information(story[keys[j]][-1]))*g_x[i,j] <= possible_stories[i][-1])
 
     # Objective Function.
@@ -80,7 +85,7 @@ def lp_gap_solver(lda_model, story, story_idx, word_dist, generic_word_dist, gro
     
     # # Following are the constraints
     
-    constraints.append(sum_entries(g_x, axis=1) == np.ones(len(idx)))
+    constraints.append(sum_entries(g_x, axis=1) <= np.ones(len(idx)))
         
     constraints.append(sum_entries(g_x, axis=0) <= np.ones((1,len(generic_word_dist.keys()))))
 
