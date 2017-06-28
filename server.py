@@ -18,6 +18,7 @@ def update_stories():
 	down_name = json.loads(request.data).get('downvoted')
 	print up_name.split(','),down_name.split(',')
 	# story = build_stories(file_name)
+	
 	return json.dumps({})
 
 @app.route('/stories',methods=['GET','POST'])
