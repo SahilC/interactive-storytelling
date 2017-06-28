@@ -58,7 +58,7 @@ def lp_gap_solver(lda_model, story_order, story_idx, word_dist, stories, generic
     keys = generic_word_dist.keys()
     for i in xrange(len(idx)):
         for j in xrange(len(keys)):
-            s_stories[i][j] = find_distance(lda_model, word_dist, generic_word_dist, possible_stories[i][1],possible_stories[i][2], keys[j])
+            s_stories[i][j] = (1-find_distance(lda_model, word_dist, generic_word_dist, possible_stories[i][1],possible_stories[i][2], keys[j]))
             constraints.append((summary_information(keys[j]))*g_x[i,j] <= possible_stories[i][-1])
 
     # Objective Function.
