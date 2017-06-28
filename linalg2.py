@@ -46,7 +46,7 @@ def lp_gap_solver(lda_model, story_order, story_idx, word_dist, stories, generic
             if story_idx[j] < i and i < story_idx[j+1]:
                 m1 =  grouped_L[story_idx[j]][0]
                 m2 =  grouped_L[story_idx[j+1]][0]
-                possible_stories.append([i,m1,m2])
+                possible_stories.append([i,m1,m2,grouped_L[i][1]])
                 break
 
     information_in_content = 1
@@ -54,10 +54,12 @@ def lp_gap_solver(lda_model, story_order, story_idx, word_dist, stories, generic
     g_x = Bool(len(idx),len(generic_word_dist.keys()))
 
     s_stories = np.zeros((len(idx),len(generic_word_dist.keys())),dtype=np.float64)
+    constraints = []
+    keys = generic_word_dist.keys()
     for i in xrange(len(idx)):
-        for j in xrange(len(generic_word_dist.keys())):
+        for j in xrange(len(keys)):
             s_stories[i][j] = random.random()
-
+            constraints.append((summary_information(keys[j]))*g_x[i,j] <= possible_stories[i][-1])
 
     # Objective Function.
     # In objective function, just change what type of information is to be used.
@@ -67,9 +69,10 @@ def lp_gap_solver(lda_model, story_order, story_idx, word_dist, stories, generic
     objective = Maximize(sum_entries(mul_elemwise(s_stories,g_x)))
     
     # # Following are the constraints
-    constraints = []
-    constraints.append(sum_entries(g_x, axis=1) == np.ones(len(idx)))
-    constraints.append(sum_entries(g_x, axis=0) == np.ones((1,len(generic_word_dist.keys()))))
+    
+    constraints.append(sum_entries(g_x, axis=1) <= np.ones(len(idx)))
+        
+    constraints.append(sum_entries(g_x, axis=0) <= np.ones((1,len(generic_word_dist.keys()))))
 
     # For this constraint always length is used, doesn't matter if Information above is based on content
     # constraints.append( sum_entries(mul_elemwise(s_stories,s_x), axis = 1) <= l_opts) 
