@@ -35,11 +35,7 @@ def get_final_order(gap_fillers, story_idx, story_order, monument_time):
 
     return final_order
 
-def lp_gap_solver(lda_model, story_order, story_idx, word_dist, stories, generic_word_dist, grouped_L, idx, upvoted = [], downvoted = []):
-    used_stories = []
-    new_order = []
-    labels = get_labels_lda(lda_model)
-    gap_fillers = {}
+def lp_gap_solver(lda_model, story_idx, word_dist, generic_word_dist, grouped_L, idx, upvoted = [], downvoted = []):
     possible_stories = []
     for i in idx:
         for j in xrange(len(story_idx)-1):
@@ -49,20 +45,30 @@ def lp_gap_solver(lda_model, story_order, story_idx, word_dist, stories, generic
                 possible_stories.append([i,m1,m2,grouped_L[i][1]])
                 break
 
-    information_in_content = 1
-
     g_x = Bool(len(idx),len(generic_word_dist.keys()))
 
     s_stories = np.zeros((len(idx),len(generic_word_dist.keys())),dtype=np.float64)
+
     constraints = []
     keys = generic_word_dist.keys()
     for i in xrange(len(idx)):
         for j in xrange(len(keys)):
             s_stories[i][j] = (1-find_distance(lda_model, word_dist, generic_word_dist, possible_stories[i][1],possible_stories[i][2], keys[j])) 
-            for k  in upvoted:
-                s_stories[i][j] += (1-compute_distance(lda_model,word_dist[k][-1],generic_word_dist[keys[j]][-1])) 
+            for k in upvoted:
+                if k != '':
+                    if k in word_dist.keys():
+                        d1 = word_dist[k][-1]
+                    else:
+                        d1 = generic_word_dist[k][-1]
+                    s_stories[i][j] += (1-compute_distance(lda_model, d1, generic_word_dist[keys[j]][-1]))  
             for k  in downvoted:
-                s_stories[i][j] += compute_distance(lda_model,word_dist[k][-1],generic_word_dist[keys[j]][-1])
+                d1 = ''
+                if k != '':
+                    if k in word_dist.keys():
+                        d1 = word_dist[k][-1]
+                    else:
+                        d1 = generic_word_dist[k][-1]
+                    s_stories[i][j] += compute_distance(lda_model, d1, generic_word_dist[keys[j]][-1])
             constraints.append((summary_information(keys[j]))*g_x[i,j] <= possible_stories[i][-1])
 
     # Objective Function.
@@ -139,7 +145,7 @@ def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic
     
     return used_stories, gap_fillers
 
-def get_monuments_story(points, l_opts, s_stories,lda_model, selected = None , topic_dist = {}, max_num_s = 3):
+def get_monuments_story(points, l_opts, s_stories,lda_model, topic_dist = {}, max_num_s = 3):
     # This function solves the LP
     # as formulated in the report
     # For the time being, the information
@@ -212,7 +218,7 @@ def build_stories(points, l_opts, s_stories , s_x, max_num_s, stories):
     # print("STORY SUMMED_ERROR : " + str(lp_error))
     return final_summary
 
-def solve_lp_for_stories(l_opts = {}, stories = defaultdict(list) ,lda_model = None, selected = None, topic_distances = {}, max_num_s = 3):
+def solve_lp_for_stories(l_opts = {}, stories = defaultdict(list) ,lda_model = None, topic_distances = {}, max_num_s = 3):
     # Build parameters for story-generation 
     points = l_opts.keys()
     s_stories = np.zeros((len(points), max_num_s),dtype=np.float64)
@@ -230,7 +236,7 @@ def solve_lp_for_stories(l_opts = {}, stories = defaultdict(list) ,lda_model = N
         # tot += l_opts[i]
     l_ot = np.array(l_ot)
 
-    s_x = get_monuments_story(points, l_ot, s_stories, lda_model, selected, topic_distances, max_num_s)
+    s_x = get_monuments_story(points, l_ot, s_stories, lda_model, topic_distances, max_num_s)
     story = build_stories(points, l_opts, t_stories, s_x, max_num_s, stories)
     return story
 
