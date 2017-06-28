@@ -56,6 +56,7 @@ def build_stories(file_name):
 	# Greedily solve for solution to the Q & A
 	selected_stories, gap_fillers = greedy_solver(lda_model, stories_order, story_idx, word_dist, stories, generic_word_dist, grouped_L, idx)
 	
+	g_x = lp_gap_solver(lda_model, stories_order, story_idx, word_dist, stories, generic_word_dist, grouped_L, idx)
 	final_order = get_final_order(gap_fillers, story_idx, stories_order, monument_time_final)
 	# print story_idx
 	# print stories_order

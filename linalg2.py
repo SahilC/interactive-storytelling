@@ -2,6 +2,7 @@
 import sys
 import numpy as np
 import math
+import random
 
 from cvxpy import *
 from collections import defaultdict
@@ -33,6 +34,53 @@ def get_final_order(gap_fillers, story_idx, story_order, monument_time):
     # print cumulative_time
 
     return final_order
+
+def lp_gap_solver(lda_model, story_order, story_idx, word_dist, stories, generic_word_dist, grouped_L, idx):
+    used_stories = []
+    new_order = []
+    labels = get_labels_lda(lda_model)
+    gap_fillers = {}
+    possible_stories = []
+    for i in idx:
+        for j in xrange(len(story_idx)-1):
+            if story_idx[j] < i and i < story_idx[j+1]:
+                m1 =  grouped_L[story_idx[j]][0]
+                m2 =  grouped_L[story_idx[j+1]][0]
+                possible_stories.append([i,m1,m2])
+                break
+
+    information_in_content = 1
+
+    g_x = Bool(len(idx),len(generic_word_dist.keys()))
+
+    s_stories = np.zeros((len(idx),len(generic_word_dist.keys())),dtype=np.float64)
+    for i in xrange(len(idx)):
+        for j in xrange(len(generic_word_dist.keys())):
+            s_stories[i][j] = random.random()
+
+
+    # Objective Function.
+    # In objective function, just change what type of information is to be used.
+
+    print s_stories
+    print '------------------------------------'
+    objective = Maximize(sum_entries(mul_elemwise(s_stories,g_x)))
+    
+    # # Following are the constraints
+    constraints = []
+    constraints.append(sum_entries(g_x, axis=1) == np.ones(len(idx)))
+    constraints.append(sum_entries(g_x, axis=0) == np.ones((1,len(generic_word_dist.keys()))))
+
+    # For this constraint always length is used, doesn't matter if Information above is based on content
+    # constraints.append( sum_entries(mul_elemwise(s_stories,s_x), axis = 1) <= l_opts) 
+
+    problem = Problem(objective, constraints)
+    problem.solve()
+
+    print ("-----------------------------")
+    print g_x.value
+    return g_x
+        
 
 def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic_word_dist, grouped_L, idx):
     used_stories = []
