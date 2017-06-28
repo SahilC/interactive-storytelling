@@ -35,7 +35,7 @@ def get_final_order(gap_fillers, story_idx, story_order, monument_time):
 
     return final_order
 
-def lp_gap_solver(lda_model, story_idx, word_dist, generic_word_dist, grouped_L, idx, upvoted = [], downvoted = []):
+def lp_gap_solver(lda_model, story, story_idx, word_dist, generic_word_dist, grouped_L, idx, upvoted = [], downvoted = []):
     possible_stories = []
     for i in idx:
         for j in xrange(len(story_idx)-1):
@@ -60,6 +60,8 @@ def lp_gap_solver(lda_model, story_idx, word_dist, generic_word_dist, grouped_L,
                         d1 = word_dist[k][-1]
                     else:
                         d1 = generic_word_dist[k][-1]
+                    print d1
+                    print generic_word_dist[keys[j]][-1]
                     s_stories[i][j] += (1-compute_distance(lda_model, d1, generic_word_dist[keys[j]][-1]))  
             for k  in downvoted:
                 d1 = ''
@@ -69,7 +71,7 @@ def lp_gap_solver(lda_model, story_idx, word_dist, generic_word_dist, grouped_L,
                     else:
                         d1 = generic_word_dist[k][-1]
                     s_stories[i][j] += compute_distance(lda_model, d1, generic_word_dist[keys[j]][-1])
-            constraints.append((summary_information(keys[j]))*g_x[i,j] <= possible_stories[i][-1])
+            constraints.append((summary_information(story[keys[j]][-1]))*g_x[i,j] <= possible_stories[i][-1])
 
     # Objective Function.
     # In objective function, just change what type of information is to be used.
@@ -78,7 +80,7 @@ def lp_gap_solver(lda_model, story_idx, word_dist, generic_word_dist, grouped_L,
     
     # # Following are the constraints
     
-    constraints.append(sum_entries(g_x, axis=1) <= np.ones(len(idx)))
+    constraints.append(sum_entries(g_x, axis=1) == np.ones(len(idx)))
         
     constraints.append(sum_entries(g_x, axis=0) <= np.ones((1,len(generic_word_dist.keys()))))
 
@@ -89,6 +91,12 @@ def lp_gap_solver(lda_model, story_idx, word_dist, generic_word_dist, grouped_L,
     problem.solve()
 
     print g_x.value
+    for i in xrange(len(idx)):
+        for j in xrange(len(keys)):
+            # print idx[i],keys[j], possible_stories[i][-1], summary_information(story[keys[j]][-1])
+            if (1-g_x.value[i,j]) <= 0.00000001:
+                print idx[i],keys[j], possible_stories[i][-1], summary_information(story[keys[j]][-1])
+
     print "-----------------------------"
     return g_x
         
