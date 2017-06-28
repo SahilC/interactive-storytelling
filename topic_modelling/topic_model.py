@@ -85,6 +85,11 @@ def find_pairwise_dissimilar(lda_model, topic_dist, names, used_keys =[]):
 	return disimilar_values
 	
 
+def find_distance(lda_model, topic_dist, word_dist, m1, m2, s1):
+	val = compute_distance(lda_model,topic_dist[m1][-1],word_dist[s1][-1])
+	val += compute_distance(lda_model,topic_dist[m2][-1],word_dist[s1][-1])
+	return val
+
 # if __name__ == '__main__':
 # 	lda_model = build_lda('../data/stories/story_data.dat', num_topics = 100)
 # 	find_pairwise_dissimilar(lda_model)
