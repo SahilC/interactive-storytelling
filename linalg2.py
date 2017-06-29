@@ -37,6 +37,7 @@ def get_final_order(gap_fillers, story_idx, story_order, monument_time):
 
 def lp_gap_solver(lda_model, story, story_idx, word_dist, generic_word_dist, grouped_L, idx, upvoted = [], downvoted = []):
     possible_stories = []
+    epsilon  = 0.0001
     for i in idx:
         for j in xrange(len(story_idx)-1):
             if story_idx[j] < i and i < story_idx[j+1]:
@@ -45,39 +46,55 @@ def lp_gap_solver(lda_model, story, story_idx, word_dist, generic_word_dist, gro
                 possible_stories.append([i,m1,m2,grouped_L[i][1]])
                 break
 
-    g_x = Bool(len(idx),len(generic_word_dist.keys()))
+    g_x = Int(len(idx),len(generic_word_dist.keys()))
 
     s_stories = np.zeros((len(idx),len(generic_word_dist.keys())),dtype=np.float64)
+    u_stories = np.zeros((len(idx),len(generic_word_dist.keys())),dtype=np.float64)
+    d_stories = np.zeros((len(idx),len(generic_word_dist.keys())),dtype=np.float64)
 
     constraints = []
     keys = generic_word_dist.keys()
     for i in xrange(len(idx)):
         for j in xrange(len(keys)):
-            s_stories[i][j] = (5-find_distance(lda_model, word_dist, generic_word_dist, possible_stories[i][1],possible_stories[i][2], keys[j])) 
-            # for k in upvoted:
-            #     if k != '':
-            #         if k in word_dist.keys():
-            #             d1 = word_dist[k][-1]
-            #         else:
-            #             d1 = generic_word_dist[k][-1]
-            #         # print d1
-            #         # print generic_word_dist[keys[j]][-1]
-            #         print summary_information(story[keys[j]][-1])
-            #         print possible_stories[i][-1]
-            #         print '========================='
-            #         s_stories[i][j] += (1-compute_distance(lda_model, d1, generic_word_dist[keys[j]][-1]))  
-            # for k  in downvoted:
-            #     d1 = ''
-            #     if k != '':
-            #         if k in word_dist.keys():
-            #             d1 = word_dist[k][-1]
-            #         else:
-            #             d1 = generic_word_dist[k][-1]
-            #         s_stories[i][j] += compute_distance(lda_model, d1, generic_word_dist[keys[j]][-1])
-            print (summary_information(story[keys[j]][-1]))
-            print possible_stories[i][-1]
+            
+            # Compute objective for similarity
+            s_stories[i][j] = find_distance(lda_model, word_dist, generic_word_dist, possible_stories[i][1],possible_stories[i][2], keys[j])
+            for k in upvoted:
+                if k != '':
+                    if k in word_dist.keys():
+                        d1 = word_dist[k][-1]
+                    else:
+                        d1 = generic_word_dist[k][-1]
+                    # print d1
+                    # print generic_word_dist[keys[j]][-1]
+                    u_stories[i][j] += compute_distance(lda_model, d1, generic_word_dist[keys[j]][-1])
+            for k  in downvoted:
+                d1 = ''
+                if k != '':
+                    if k in word_dist.keys():
+                        d1 = word_dist[k][-1]
+                    else:
+                        d1 = generic_word_dist[k][-1]
+                    d_stories[i][j] += compute_distance(lda_model, d1, generic_word_dist[keys[j]][-1])
+
+            # Add constraint for speaking time
+            # print idx[i],keys[j],summary_information(story[keys[j]][-1]), possible_stories[i][-1]
             constraints.append((summary_information(story[keys[j]][-1]))*g_x[i,j] <= possible_stories[i][-1])
 
+    s_stories = (s_stories - s_stories.min())/(s_stories.max() - s_stories.min())
+    s_stories = (1 - s_stories)
+
+    if u_stories.max() - u_stories.min() > epsilon:
+        u_stories = (u_stories - u_stories.min())/(u_stories.max() - u_stories.min())
+        u_stories = (1 - u_stories)
+
+    if d_stories.max() - d_stories.min() > epsilon:
+        d_stories = (d_stories - d_stories.min())/(d_stories.max() - d_stories.min())
+
+    s_stories = sum([s_stories,u_stories, d_stories])
+    # s_stories = (s_stories - s_stories.min())/(s_stories.max() - s_stories.min())
+
+    print '============================='
     # Objective Function.
     # In objective function, just change what type of information is to be used.
 
@@ -85,6 +102,8 @@ def lp_gap_solver(lda_model, story, story_idx, word_dist, generic_word_dist, gro
     
     # # Following are the constraints
     
+    constraints.append(g_x <= np.ones((len(idx),len(generic_word_dist.keys()))))
+    constraints.append(g_x >= np.zeros((len(idx),len(generic_word_dist.keys()))))
     constraints.append(sum_entries(g_x, axis=1) <= np.ones(len(idx)))
         
     constraints.append(sum_entries(g_x, axis=0) <= np.ones((1,len(generic_word_dist.keys()))))
@@ -99,7 +118,7 @@ def lp_gap_solver(lda_model, story, story_idx, word_dist, generic_word_dist, gro
     for i in xrange(len(idx)):
         for j in xrange(len(keys)):
             # print idx[i],keys[j], possible_stories[i][-1], summary_information(story[keys[j]][-1])
-            if (1-g_x.value[i,j]) <= 0.00000001:
+            if (1-g_x.value[i,j]) <= epsilon:
                 print idx[i],keys[j], possible_stories[i][-1], summary_information(story[keys[j]][-1])
 
     print "-----------------------------"
