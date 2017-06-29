@@ -34,6 +34,6 @@ def stories():
 if __name__ == '__main__':
 	while True:
 		try:
-			app.run(host="127.0.0.1",use_reloader = False)
+			app.run(host="127.0.0.1",use_reloader = False,debug=True, threaded=True)
 		except:
 			pass
