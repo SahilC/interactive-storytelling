@@ -5,18 +5,19 @@
 <link rel="stylesheet" href="{{url_for('static', filename='css/font-awesome/css/font-awesome.min.css')}}">
 </head>
 <body>
-		<div id = "title" style="position: absolute;left:68%;font-size: 110%; top: 2%">
-		</div>
-		<div id = "story" style="position: absolute;left:68%;font-size: 90%; top: 5%; text-align:justify;width:350px">	
-		</div>
-		<div id = "pref" style="position: absolute;left:68%;font-size: 90%; top: 65%; text-align:justify;width:350px;padding-top: 2%">
-			<div id="up" style="position: absolute; left: 0%;">
+		<div id = "pref" style="position: absolute;left:87%;font-size: 90%; top: 0%; text-align:justify;width:100px;padding-top: 2%">
+			<div id="up" style="position: absolute; left: 0%;cursor: pointer;">
 				<i class="fa fa-2x fa-thumbs-o-up" aria-hidden="true"></i>
 			</div>
-			<div id="down" style=" position: absolute; left: 50%;">
+			<div id="down" style=" position: absolute; left: 50%;cursor: pointer;">
 				<i class="fa fa-2x fa-thumbs-o-down" aria-hidden="true"></i>
 			</div>
 		</div>
+		<div id = "title" style="position: absolute;left:68%;font-size: 110%; top: 5%">
+		</div>
+		<div id = "story" style="position: absolute;left:68%;font-size: 90%; top: 8%; text-align:justify;width:350px">	
+		</div>
+		
 		<video  id="video_player" controls="controls" >
 			<source src="{{url_for('static', filename='FILE0573.MOV')}}" type="video/mp4">
 		</video>

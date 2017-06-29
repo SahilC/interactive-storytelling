@@ -41,7 +41,7 @@ $(document).ready(function() {
                             text: "Would you like to listen to a story about "+result.final[i].story.opt1 + " or " + result.final[i].story.opt2+"?" ,
                             type: "input",
                             showCancelButton: true,
-                            closeOnConfirm: false,
+                            closeOnConfirm: true,
                             animation: "slide-from-top",
                             inputPlaceholder: "Enter choice here."
                           },
@@ -72,6 +72,7 @@ $(document).ready(function() {
                               i += 1;
                             }
                             // swal("Nice!", "You wrote: " + inputValue, "success");
+                            return true;
                           });
                       }
                   }
