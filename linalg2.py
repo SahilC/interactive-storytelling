@@ -170,7 +170,7 @@ def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic
                 gap_fillers[i] = {'story':selected,'type':'story','time':grouped_L[i][1]}
             else:
                 selected = form_question(lda_model, labels, generic_word_dist, used_stories)
-                gap_fillers[i] = {'story':selected,'type':'question','time':grouped_L[i][1]}
+                gap_fillers[i] = {'story':selected,'idx':i,'type':'question','time':grouped_L[i][1]}
             used_stories.append(selected)
             # print stories[selected][-1]
             # print '==========================='
