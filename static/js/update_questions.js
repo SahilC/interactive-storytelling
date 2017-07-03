@@ -86,7 +86,7 @@ $(document).ready(function() {
                                 }
                                 vid.play();
                                 var newvalue = $("#upvoted").val();
-                                newvalue = newvalue + "," + $("#title").html();
+                                    newvalue = newvalue + "," + $("#title").html();
                                 $("#upvoted").val(newvalue);
                                 update_stories($("#upvoted").val(),$("#downvoted").val());
                                 // swal("Nice!", "You wrote: " + inputValue, "success");
