@@ -57,27 +57,42 @@ $(document).ready(function() {
                               swal.showInputError("You need to write something!");
                               return false
                             }
-                            console.log(i);
-
-                            if (result.final[i].story.opt1.includes(inputValue)) {
-                              document.getElementById('title').innerHTML = result.final[i].story.m1;
-                              pause = pause + (new Date().getTime() - pause_start);
-                              vid.play();
-                              // responsiveVoice.speak(result.stories[result.final[i].story.m1][0]);
-                              console.log(result.final[i].story.m1);
-                              document.getElementById('story').innerHTML = result.stories[result.final[i].story.m1][0];
-                              i += 1;
+                            
+                            var id = result.final[i].idx;
+                            if($('#id_'+id).html() != '' ) {
+                                var story = $('#id_'+id).html();
+                                console.log(story);
+                                document.getElementById('title').innerHTML = story;
+                                pause = pause + (new Date().getTime() - pause_start);
+                                i += 1;
+                                document.getElementById('story').innerHTML = result.stories[story][0];
+                                vid.play();
+                                return true;
                             } else {
-                              document.getElementById('title').innerHTML = result.final[i].story.m2;
-                              pause = pause + (new Date().getTime() - pause_start);
-                              vid.play();
-                              // responsiveVoice.speak(result.stories[result.final[i].story.m2][0]);
-                              console.log(result.final[i].story.m2);
-                              document.getElementById('story').innerHTML = result.stories[result.final[i].story.m2][0];
-                              i += 1;
+                                if (result.final[i].story.opt1.includes(inputValue)) {
+                                  document.getElementById('title').innerHTML = result.final[i].story.m1;
+                                  pause = pause + (new Date().getTime() - pause_start);
+                                  
+                                  // responsiveVoice.speak(result.stories[result.final[i].story.m1][0]);
+                                  console.log(result.final[i].story.m1);
+                                  i += 1;
+                                } else {
+                                  document.getElementById('title').innerHTML = result.final[i].story.m2;
+                                  pause = pause + (new Date().getTime() - pause_start);
+                                  // responsiveVoice.speak(result.stories[result.final[i].story.m2][0]);
+                                  console.log(result.final[i].story.m2);
+                                  document.getElementById('story').innerHTML = result.stories[result.final[i].story.m2][0];
+                                  i += 1;
+                                }
+                                vid.play();
+                                var newvalue = $("#upvoted").val();
+                                newvalue = newvalue + "," + $("#title").html();
+                                $("#upvoted").val(newvalue);
+                                update_stories($("#upvoted").val(),$("#downvoted").val());
+                                // swal("Nice!", "You wrote: " + inputValue, "success");
+                                return true;
                             }
-                            // swal("Nice!", "You wrote: " + inputValue, "success");
-                            return true;
+                            
                           });
                       }
                   }
