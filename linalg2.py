@@ -94,7 +94,7 @@ def lp_gap_solver(lda_model, story, story_idx, word_dist, generic_word_dist, gro
     s_stories = sum([s_stories,u_stories, d_stories])
     # s_stories = (s_stories - s_stories.min())/(s_stories.max() - s_stories.min())
 
-    print '============================='
+    # print '============================='
     # Objective Function.
     # In objective function, just change what type of information is to be used.
 
@@ -114,15 +114,17 @@ def lp_gap_solver(lda_model, story, story_idx, word_dist, generic_word_dist, gro
     problem = Problem(objective, constraints)
     problem.solve()
 
-    print g_x.value
+    # print g_x.value
+    updated_stories = {}
     for i in xrange(len(idx)):
         for j in xrange(len(keys)):
             # print idx[i],keys[j], possible_stories[i][-1], summary_information(story[keys[j]][-1])
             if (1-g_x.value[i,j]) <= epsilon:
+                updated_stories[idx[i]] = keys[j]
                 print idx[i],keys[j], possible_stories[i][-1], summary_information(story[keys[j]][-1])
 
     print "-----------------------------"
-    return g_x
+    return updated_stories
         
 
 def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic_word_dist, grouped_L, idx):

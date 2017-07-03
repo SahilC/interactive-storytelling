@@ -14,22 +14,19 @@ def hello_world():
 
 @app.route('/update_stories',methods=['GET','POST'])
 def update_stories():
-	print 'Yo'
 	file_name = json.loads(request.data).get('file_name')
 	up_name = json.loads(request.data).get('upvoted')
 	down_name = json.loads(request.data).get('downvoted')
 	upvoted =  up_name.split(',')
 	downvoted = down_name.split(',')
 	story = very_bad_code(file_name,upvoted, downvoted)
-	return json.dumps({})
+	return json.dumps(story)
 
 @app.route('/stories',methods=['GET','POST'])
 def stories():
-	print 'GOT IT'
 	file_name = json.loads(request.data).get('file_name')
 	story = build_stories(file_name)
 	return json.dumps(story)
-
 
 if __name__ == '__main__':
 	while True:

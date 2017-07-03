@@ -7,6 +7,11 @@ $(document).ready(function() {
         data: JSON.stringify({file_name: 'data/FILE0573.MOV.txt'}),
         success: function(response) {
             var result = JSON.parse(response);
+            var num_gaps = result['num_gaps'];
+            var idx = result['idx'];
+            for(var i =0;i<num_gaps;i++) {
+                $("#gaps").append("<div id='id_"+idx[i]+"'></div>");
+            }
             vid.muted = true;
             vid.play(); 
             check_and_wait(result);
@@ -90,6 +95,10 @@ $(document).ready(function() {
           data: JSON.stringify({file_name: 'data/FILE0573.MOV.txt',upvoted: upvoted, downvoted: downvoted}),
           success: function(response) {
               var result = JSON.parse(response);
+              console.log(result);
+              $.each(result, function (key, value) {
+                    $("#id_"+key).html(value);
+                });
               
               // check_and_wait(result);
               // console.log(result.stories)

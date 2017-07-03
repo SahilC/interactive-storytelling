@@ -51,7 +51,7 @@ def build_stories(file_name):
 	g_x = lp_gap_solver(lda_model, stories, story_idx, word_dist, generic_word_dist, grouped_L, idx)
 	print '================================================'
 	final_order = get_final_order(gap_fillers, story_idx, stories_order, monument_time_final)
-	return {'final':final_order ,'stories':stories}
+	return {'final':final_order ,'stories':stories,'num_gaps':len(idx),'idx':idx}
 
 def very_bad_code(file_name, upvoted, downvoted):
 	monument_time_final, grouped_L = smooth_values(file_name)
