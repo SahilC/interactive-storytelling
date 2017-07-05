@@ -38,6 +38,12 @@ def get_final_order(gap_fillers, story_idx, story_order, monument_time):
 def lp_gap_solver(lda_model, story, story_idx, word_dist, generic_word_dist, grouped_L, idx, upvoted = [], downvoted = []):
     possible_stories = []
     epsilon  = 0.0001
+    
+
+    if grouped_L[0][0] == 'NoDetect':
+        m1 =  'Introduction.dat'
+        possible_stories.append([0,m1,grouped_L[1][0],grouped_L[0][1]])
+    
     for i in idx:
         for j in xrange(len(story_idx)-1):
             if story_idx[j] < i and i < story_idx[j+1]:
@@ -45,6 +51,15 @@ def lp_gap_solver(lda_model, story, story_idx, word_dist, generic_word_dist, gro
                 m2 =  grouped_L[story_idx[j+1]][0]
                 possible_stories.append([i,m1,m2,grouped_L[i][1]])
                 break
+
+    if grouped_L[-1][0] == 'NoDetect':
+        m2 =  'Conclusion.dat'
+        last = story_idx[-1]
+        for j in xrange(len(idx)):
+            if idx[j] > last:
+                m1 =  grouped_L[idx[j]-1][0]
+                possible_stories.append([idx[j],m1,m2,grouped_L[i][1]])
+
 
     g_x = Int(len(idx),len(generic_word_dist.keys()))
 
@@ -56,7 +71,6 @@ def lp_gap_solver(lda_model, story, story_idx, word_dist, generic_word_dist, gro
     keys = generic_word_dist.keys()
     for i in xrange(len(idx)):
         for j in xrange(len(keys)):
-            
             # Compute objective for similarity
             s_stories[i][j] = find_distance(lda_model, word_dist, generic_word_dist, possible_stories[i][1],possible_stories[i][2], keys[j])
             for k in upvoted:
@@ -121,13 +135,14 @@ def lp_gap_solver(lda_model, story, story_idx, word_dist, generic_word_dist, gro
             # print idx[i],keys[j], possible_stories[i][-1], summary_information(story[keys[j]][-1])
             if (1-g_x.value[i,j]) <= epsilon:
                 updated_stories[idx[i]] = keys[j]
-                print idx[i],keys[j], possible_stories[i][-1], summary_information(story[keys[j]][-1])
+                print idx[i],keys[j], possible_stories[i][1],possible_stories[i][2],possible_stories[i][-1], summary_information(story[keys[j]][-1])
 
-    print "-----------------------------"
     return updated_stories
         
 
 def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic_word_dist, grouped_L, idx):
+    m1 = None
+    m2 = None
     used_stories = []
     new_order = []
     labels = get_labels_lda(lda_model)
@@ -139,11 +154,18 @@ def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic
                 m1 =  grouped_L[story_idx[j]][0]
                 m2 =  grouped_L[story_idx[j+1]][0]
                 break
-        # m1 = grouped_L[i-1][0]
-        # m2 = grouped_L[i+1][0]
+
+        if grouped_L[0][0] == 'NoDetect':
+            m1 =  'Introduction.dat'
+            
+        if grouped_L[-1][0] == 'NoDetect':
+            m1 = grouped_L[-2][0]
+            m2 = 'Conclusion.dat'
         # print m1
         # print m2
+        # print '==========================='
         # print 'GAP:',i
+
         flag = True
         for j in generic_word_dist.keys():
             val1 = compute_distance(lda_model, word_dist[m1][-1], generic_word_dist[j][-1])
@@ -204,6 +226,9 @@ def get_monuments_story(points, l_opts, s_stories,lda_model, topic_dist = {}, ma
     # # Following are the constraints
     constraints = []
     # for i in xrange(len(points)):
+    # constraints.append(s_x <= np.ones((len(points),max_num_s)))
+    # constraints.append(s_x >= np.zeros((len(points),max_num_s)))
+
     constraints.append(sum_entries(s_x, axis=1) <= np.ones(len(points)))
 
     # For this constraint always length is used, doesn't matter if Information above is based on content
@@ -213,8 +238,10 @@ def get_monuments_story(points, l_opts, s_stories,lda_model, topic_dist = {}, ma
     problem = Problem(objective, constraints)
     problem.solve()
 
-    print ("-----------------------------")
-    # print s_x.value
+    for i in xrange(len(s_x.value)):
+        for j in xrange(len(s_x.value[i])):
+            if np.abs(s_x[i,j].value -1) < 0.0001:
+                print points[i],j
 
     return s_x
 
