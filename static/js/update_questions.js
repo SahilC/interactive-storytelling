@@ -4,7 +4,7 @@ $(document).ready(function() {
         url: '/stories' ,
         method: 'POST',
         contentType:'application/json',
-        data: JSON.stringify({file_name: 'data/FILE0573.MOV.txt'}),
+        data: JSON.stringify({file_name: 'data/FILE0573.txt'}),
         success: function(response) {
             var result = JSON.parse(response);
             var num_gaps = result['num_gaps'];
