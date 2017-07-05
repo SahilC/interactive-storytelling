@@ -49,7 +49,7 @@ def build_stories(file_name):
 	selected_stories, gap_fillers = greedy_solver(lda_model, stories_order, story_idx, word_dist, stories, generic_word_dist, grouped_L, idx)
 	
 	g_x = lp_gap_solver(lda_model, stories, story_idx, word_dist, generic_word_dist, grouped_L, idx)
-	print '================================================'
+	# print '================================================'
 	final_order = get_final_order(gap_fillers, story_idx, stories_order, monument_time_final)
 	return {'final':final_order ,'stories':stories,'num_gaps':len(idx),'idx':idx}
 

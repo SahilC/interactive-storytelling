@@ -11,6 +11,14 @@ from collections import defaultdict
 def calculate_lda_probs(lda_model, detection, lengths):
 	word_dist = defaultdict(list)
 	stories = defaultdict(list)
+	for j in lengths:
+		prob, story = get_lda_probs(lda_model, 'data/stories/'+j+'/Introduction.dat')
+		word_dist['Introduction.dat'].append(prob)
+		stories['Introduction.dat'].append(story)
+		prob, story = get_lda_probs(lda_model, 'data/stories/'+j+'/Conclusion.dat')
+		word_dist['Conclusion.dat'].append(prob)
+		stories['Conclusion.dat'].append(story)
+
 	for name in detection:
 		for j in lengths:
 			prob, story = get_lda_probs(lda_model, 'data/stories/'+j+'/'+name+'.dat')
