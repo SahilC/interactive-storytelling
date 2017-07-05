@@ -5,6 +5,7 @@ __pycache__/
 
 # MOV extensions
 *.MOV 
+*.mp4
 
 # C extensions
 *.so
