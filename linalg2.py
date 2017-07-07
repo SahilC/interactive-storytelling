@@ -17,23 +17,66 @@ def summary_information(summary):
     val = len(summary.split())/time_taken_to_speak_one_word
     return val
 
-def get_final_order(gap_fillers, story_idx, story_order, monument_time):
+def get_final_order(gap_fillers, story_idx, story_order, grouped_L, monument_time, final_time):
     final_order = []
     cumulative_time = 0
+    # print final_time
+    # print gap_fillers
     for j in xrange(len(story_idx)-1):
         final_order.append({'name':story_order[j],'time':cumulative_time,'type':'story'})
-        cumulative_time += monument_time[story_order[j]]
+        cumulative_time += final_time[story_order[j]]
         for i in gap_fillers.keys():
             if story_idx[j] < i and i < story_idx[j+1]:
-                temp = gap_fillers[i]['time']
-                gap_fillers[i]['time'] = cumulative_time
-
+                m1 =  grouped_L[story_idx[j]][0]
+                temp = gap_fillers[i]['time'] - final_time[m1]
+                gap_fillers[i]['time'] = cumulative_time 
                 final_order.append(gap_fillers[i])
                 cumulative_time += temp
     # print "Final Story time:"
     # print cumulative_time
 
     return final_order
+
+def get_monuments_story(points, l_opts, s_stories,lda_model, topic_dist = {}, max_num_s = 3):
+    # This function solves the LP
+    # as formulated in the report
+    # For the time being, the information
+    # content of the content summaries and
+    # Glue summaries have been fixed.
+
+    # Taking information content as 1
+    # for both content and glue sentences
+
+    information_in_content = 1
+
+    s_x = Int(len(points),max_num_s)
+
+
+    # Objective Function.
+    # In objective function, just change what type of information is to be used.
+
+    objective = Maximize(sum_entries(mul_elemwise(s_stories,s_x)))
+    # if selected:
+    #     summary_selection += -s_y[i]*sum([ sum([s_x[i][j]*compute_distance(lda_model, topic_dist[selected][j],topic_dist[i][j]) for j in s_sequence])  for i in points ])
+    # # summary_selection += sum([ sum([ ((s_x[i][j]*summary_information(content_summaries[i][j], "length_based")) ) for j in s_sequence ]) for i in edges])
+    # # Following are the constraints
+    constraints = []
+    # for i in xrange(len(points)):
+    # constraints.append(s_x <= np.ones((len(points),max_num_s)))
+    # constraints.append(s_x >= np.zeros((len(points),max_num_s)))
+
+    constraints.append(s_x <= np.ones((len(points),max_num_s)))
+    constraints.append(s_x >= np.zeros((len(points),max_num_s)))
+    constraints.append(sum_entries(s_x, axis=1) <= np.ones(len(points)))
+
+    # For this constraint always length is used, doesn't matter if Information above is based on content
+    # for i in xrange(len(points)):
+    constraints.append( sum_entries(mul_elemwise(s_stories,s_x), axis = 1) <= l_opts) 
+
+    problem = Problem(objective, constraints)
+    problem.solve()
+
+    return s_x
 
 def lp_gap_solver(lda_model, story, story_idx, word_dist, generic_word_dist, grouped_L, idx, upvoted = [], downvoted = []):
     possible_stories = []
@@ -128,7 +171,6 @@ def lp_gap_solver(lda_model, story, story_idx, word_dist, generic_word_dist, gro
     problem = Problem(objective, constraints)
     problem.solve()
 
-    # print g_x.value
     updated_stories = {}
     for i in xrange(len(idx)):
         for j in xrange(len(keys)):
@@ -174,7 +216,7 @@ def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic
             if val1 < 0.3 and val2 < 0.3 and summary_information(stories[j][-1]) < grouped_L[i][1] and j not in used_stories:
                 # print stories[j][-1]
                 used_stories.append(j)
-                gap_fillers[i] = {'story':j,'type':'story','time':summary_information(stories[j][-1])}
+                gap_fillers[i] = {'name':j,'type':'story','time':grouped_L[i][1]}
                 flag = False
                 break
             elif summary_information(stories[j][-1]) < grouped_L[i][1]:
@@ -200,50 +242,6 @@ def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic
             # print '==========================='
     
     return used_stories, gap_fillers
-
-def get_monuments_story(points, l_opts, s_stories,lda_model, topic_dist = {}, max_num_s = 3):
-    # This function solves the LP
-    # as formulated in the report
-    # For the time being, the information
-    # content of the content summaries and
-    # Glue summaries have been fixed.
-
-    # Taking information content as 1
-    # for both content and glue sentences
-
-    information_in_content = 1
-
-    s_x = Bool(len(points),max_num_s)
-
-
-    # Objective Function.
-    # In objective function, just change what type of information is to be used.
-
-    objective = Maximize(sum_entries(mul_elemwise(s_stories,s_x)))
-    # if selected:
-    #     summary_selection += -s_y[i]*sum([ sum([s_x[i][j]*compute_distance(lda_model, topic_dist[selected][j],topic_dist[i][j]) for j in s_sequence])  for i in points ])
-    # # summary_selection += sum([ sum([ ((s_x[i][j]*summary_information(content_summaries[i][j], "length_based")) ) for j in s_sequence ]) for i in edges])
-    # # Following are the constraints
-    constraints = []
-    # for i in xrange(len(points)):
-    # constraints.append(s_x <= np.ones((len(points),max_num_s)))
-    # constraints.append(s_x >= np.zeros((len(points),max_num_s)))
-
-    constraints.append(sum_entries(s_x, axis=1) <= np.ones(len(points)))
-
-    # For this constraint always length is used, doesn't matter if Information above is based on content
-    # for i in xrange(len(points)):
-    constraints.append( sum_entries(mul_elemwise(s_stories,s_x), axis = 1) <= l_opts) 
-
-    problem = Problem(objective, constraints)
-    problem.solve()
-
-    for i in xrange(len(s_x.value)):
-        for j in xrange(len(s_x.value[i])):
-            if np.abs(s_x[i,j].value -1) < 0.0001:
-                print points[i],j
-
-    return s_x
 
 
 def build_stories(points, l_opts, s_stories , s_x, max_num_s, stories):
@@ -276,8 +274,8 @@ def build_stories(points, l_opts, s_stories , s_x, max_num_s, stories):
     for i in points:
         lp_error.append(np.int32(np.abs(l_opts[i] - final_time[i])))
 
-    # print("STORY SUMMED_ERROR : " + str(lp_error))
-    return final_summary
+    print("STORY SUMMED_ERROR : " + str(lp_error))
+    return final_summary, final_time
 
 def solve_lp_for_stories(l_opts = {}, stories = defaultdict(list) ,lda_model = None, topic_distances = {}, max_num_s = 3):
     # Build parameters for story-generation 
@@ -298,8 +296,8 @@ def solve_lp_for_stories(l_opts = {}, stories = defaultdict(list) ,lda_model = N
     l_ot = np.array(l_ot)
 
     s_x = get_monuments_story(points, l_ot, s_stories, lda_model, topic_distances, max_num_s)
-    story = build_stories(points, l_opts, t_stories, s_x, max_num_s, stories)
-    return story
+    story, final_time = build_stories(points, l_opts, t_stories, s_x, max_num_s, stories)
+    return story, final_time
 
 
 

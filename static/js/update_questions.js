@@ -4,7 +4,7 @@ $(document).ready(function() {
         url: '/stories' ,
         method: 'POST',
         contentType:'application/json',
-        data: JSON.stringify({file_name: 'data/FILE0573.txt'}),
+        data: JSON.stringify({file_name: 'data/VID_20170607_111002.txt'}),
         success: function(response) {
             var result = JSON.parse(response);
             var num_gaps = result['num_gaps'];
@@ -35,8 +35,9 @@ $(document).ready(function() {
                       // responsiveVoice.speak(result.stories[result.final[i].name][0]);
                       console.log(result.final[i].name);
                       document.getElementById('title').innerHTML = result.final[i].name;
-                      document.getElementById('story').innerHTML = result.stories[result.final[i].name][0];
+                      document.getElementById('story').innerHTML = result.final_stories[result.final[i].name];
                       i += 1;
+
                   } else {
                       if(vid.paused != true) {
                           var pause_start = new Date().getTime();

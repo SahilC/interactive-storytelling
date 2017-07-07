@@ -34,6 +34,9 @@ def build_stories(file_name):
 	# Compute the LDA probabilites for each of the stories
 	word_dist, stories = calculate_lda_probs(lda_model, detection, lengths)
 
+	# Solve LP to select stories about the monuments
+	final_monument_stories, final_time = solve_lp_for_stories(monument_time_final, stories, lda_model, word_dist, len(lengths))
+
 	# Populate Datastructures with the LDA probs
 	generic_word_dist = defaultdict(list)
 	for j in filler_types:
@@ -41,17 +44,15 @@ def build_stories(file_name):
 			prob, story = get_lda_probs(lda_model, 'data/stories/'+j+'/'+name)
 			generic_word_dist[name].append(prob)
 			stories[name].append(story)
-
-	# Solve LP to select stories about the monuments
-	final_monument_stories = solve_lp_for_stories(monument_time_final, stories, lda_model, word_dist, len(lengths))
-
+			final_monument_stories[name] = story
 	# Greedily solve for solution to the Q & A
 	selected_stories, gap_fillers = greedy_solver(lda_model, stories_order, story_idx, word_dist, stories, generic_word_dist, grouped_L, idx)
 	
 	g_x = lp_gap_solver(lda_model, stories, story_idx, word_dist, generic_word_dist, grouped_L, idx)
 	# print '================================================'
-	final_order = get_final_order(gap_fillers, story_idx, stories_order, monument_time_final)
-	return {'final':final_order ,'stories':stories,'num_gaps':len(idx),'idx':idx}
+	final_order = get_final_order(gap_fillers, story_idx, stories_order, grouped_L, monument_time_final, final_time)
+	print final_order
+	return {'final':final_order ,'stories':stories,'num_gaps':len(idx),'idx':idx, 'final_stories':final_monument_stories}
 
 def very_bad_code(file_name, upvoted, downvoted):
 	monument_time_final, grouped_L = smooth_values(file_name)

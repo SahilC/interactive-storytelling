@@ -1,6 +1,7 @@
 from collections import defaultdict
 from collections import Counter
 from itertools import groupby
+import numpy as np
 
 # Mapping of merged interest points
 story_mapping = {
@@ -32,19 +33,33 @@ def process_nodetects(grouped_L, monument_time_final, sampling_rate = 5):
 	idx_monument = {}
 	i = 0
 	stories_order = []
-	story_idx = []		
+	story_idx = []
 	for (k,v) in grouped_L:
 		if k not in stories_order and k != 'NoDetect':
 			stories_order.append(k)
-			story_idx.append(i)
+			v = 0
+			i_val = 0
+			max_val = 0
+			for (k1,v1) in grouped_L:
+				if max_val < v1 and k1 == k:
+					# other_monuments = []
+					max_val = v1
+					i_val = v
+				v += 1
+			story_idx.append(i_val)
 		elif i < (len(grouped_L) - 1) and grouped_L[i+1][0] == grouped_L[i-1][0] and k == 'NoDetect':
-			monument_time_final[grouped_L[i-1][0]] += v
+			if grouped_L[i-1][0] != 'NoDetect':
+				monument_time_final[grouped_L[i-1][0]] += v
 		elif k == 'NoDetect' and v < 10:
-			monument_time_final[grouped_L[i-1][0]] += v
+			if grouped_L[i-1][0] != 'NoDetect':
+				monument_time_final[grouped_L[i-1][0]] += v
 		elif k == 'NoDetect' and v > 10:
 			idx.append(i)
 		i += 1
 
+	sorted_idx = np.argsort(story_idx)
+	stories_order = [stories_order[i] for i in sorted_idx]
+	story_idx = [story_idx[i] for i in sorted_idx]
 	return idx, idx_monument, stories_order, story_idx
 
 def smooth_values(file_name = 'data/FILE0573.MOV.txt', sampling_rate = 1):
@@ -75,35 +90,46 @@ def smooth_values(file_name = 'data/FILE0573.MOV.txt', sampling_rate = 1):
 	t = 0	
 	for l in xrange(0,len(lines),sampling_rate):
 		val = lines[l].split(" ")
-		if float(val[2])*float(val[3]) < 3:
+		if float(val[2])*float(val[3]) < 5:
 			detection2[t] = 'NoDetect'
 		t+=1
-
 	
 	t = 0
-	for l in xrange(order,len(lines) - order,sampling_rate):
+	for l in xrange(0, len(lines),sampling_rate):
 		val = lines[l].split(" ")
-		order = 30
-		other_monuments = [None]
+		v = ''
+		# other_monuments = []
+		tot = 0
+		order = 15
+		max_val = 0
+		# other_monuments = [None]
 		v = '' 
-		while(len(other_monuments) != 0):
-			order += 2
-			max_freq = Counter(detection2[t-order:t+order])
-			v = ''
-			max_val = 0
-			other_monuments = []
-			for k in max_freq.keys():
-				if max_val < max_freq[k]:
-					other_monuments = []
-					max_val = max_freq[k]
-					v = k
-				elif max_val == max_freq[k]:
-					other_monuments.append(k)
+		# while(len(other_monuments) != 0):
+		lower = t-order
+		upper = t+order
+		if lower < 0:
+			lower = 0
+		if upper >= len(detection2):
+			upper = len(detection2) - 1
 
-		if len(other_monuments) == 0:
-			if v != 'NoDetect' and v != '':
-			 	monument_time_final[v] += 1
-			
+		max_freq = Counter(detection2[lower:upper])
+		
+		for k in max_freq.keys():
+			tot += max_freq[k]
+			if max_val < max_freq[k]:
+				# other_monuments = []
+				max_val = max_freq[k]
+				v = k
+			# elif max_val == max_freq[k]:
+			# 	other_monuments.append(k)
+
+		if v != 'NoDetect' and v != '' and max_val > order:
+		 	monument_time_final[v] += 1
+
+		if v != '' and max_val > order:
+			detection[t] = v
+		else:
+			detection[t] = 'NoDetect'			
 			#frame_detections[val[0]]['detection'] = val[1]
 			#frame_detections[val[0]]['threshold'] = float(val[2])*float(val[3])
 			# print val[0],val[1]
@@ -124,15 +150,21 @@ def smooth_values(file_name = 'data/FILE0573.MOV.txt', sampling_rate = 1):
 		monument_time_final[i]*= (sampling_rate / 24.0)
 		tot += monument_time_final[i]
 
+	# print '=================================='
 	grouped_L = []
-	for k,g in groupby(detection2):
+	for k,g in groupby(detection):
 		val = sum(1 for i in g)
 		if val > 10:
 			if len(grouped_L) > 0 and grouped_L[-1][0] == k:
 				grouped_L[-1][1] += (sampling_rate / 24.0)*val
 			else:
 				grouped_L.append([k, (sampling_rate / 24.0)*val])
-	print monument_time_final
-	print grouped_L
-	print '========================'
+	
+	for i in xrange(len(grouped_L) -1):
+		if grouped_L[i][0] != 'NoDetect' and grouped_L[i + 1][0] == 'NoDetect':
+			monument_time_final[grouped_L[i][0]] += grouped_L[i + 1][1]
+
+	# print grouped_L
+	# print monument_time_final
+
 	return monument_time_final, grouped_L
