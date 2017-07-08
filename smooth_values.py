@@ -105,8 +105,8 @@ def smooth_values(file_name = 'data/FILE0573.MOV.txt', sampling_rate = 1):
 		# other_monuments = [None]
 		v = '' 
 		# while(len(other_monuments) != 0):
-		lower = t-order
-		upper = t+order
+		lower = t - order
+		upper = t + order
 		if lower < 0:
 			lower = 0
 		if upper >= len(detection2):
@@ -147,7 +147,7 @@ def smooth_values(file_name = 'data/FILE0573.MOV.txt', sampling_rate = 1):
 	# print monument_time_final
 	tot = 0
 	for i in monument_time_final.keys():
-		monument_time_final[i]*= (sampling_rate / 24.0)
+		monument_time_final[i]*= (sampling_rate / 30.0)
 		tot += monument_time_final[i]
 
 	# print '=================================='
@@ -156,15 +156,15 @@ def smooth_values(file_name = 'data/FILE0573.MOV.txt', sampling_rate = 1):
 		val = sum(1 for i in g)
 		if val > 10:
 			if len(grouped_L) > 0 and grouped_L[-1][0] == k:
-				grouped_L[-1][1] += (sampling_rate / 24.0)*val
+				grouped_L[-1][1] += (sampling_rate / 30.0)*val
 			else:
-				grouped_L.append([k, (sampling_rate / 24.0)*val])
+				grouped_L.append([k, (sampling_rate / 30.0)*val])
 	
 	for i in xrange(len(grouped_L) -1):
 		if grouped_L[i][0] != 'NoDetect' and grouped_L[i + 1][0] == 'NoDetect':
 			monument_time_final[grouped_L[i][0]] += grouped_L[i + 1][1]
 
-	# print grouped_L
+	print grouped_L
 	# print monument_time_final
 
 	return monument_time_final, grouped_L

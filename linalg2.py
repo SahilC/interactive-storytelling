@@ -17,21 +17,34 @@ def summary_information(summary):
     val = len(summary.split())/time_taken_to_speak_one_word
     return val
 
-def get_final_order(gap_fillers, story_idx, story_order, grouped_L, monument_time, final_time):
+def get_final_order(gap_fillers, g_x, idx, story_idx, story_order, grouped_L, monument_time, final_time):
     final_order = []
     cumulative_time = 0
     # print final_time
-    # print gap_fillers
-    for j in xrange(len(story_idx)-1):
-        final_order.append({'name':story_order[j],'time':cumulative_time,'type':'story'})
-        cumulative_time += final_time[story_order[j]]
-        for i in gap_fillers.keys():
-            if story_idx[j] < i and i < story_idx[j+1]:
-                m1 =  grouped_L[story_idx[j]][0]
-                temp = gap_fillers[i]['time'] - final_time[m1]
+    for i in xrange(len(grouped_L)):
+        if grouped_L[i][0] != 'NoDetect':
+            if i in story_idx:
+                final_order.append({'name':grouped_L[i][0],'time':cumulative_time,'type':'story'})
+        else:
+            if i in idx:
                 gap_fillers[i]['time'] = cumulative_time 
+                gap_fillers[i]['story'] = g_x[i]
                 final_order.append(gap_fillers[i])
-                cumulative_time += temp
+        cumulative_time += grouped_L[i][1]
+
+    # if grouped_L[0][0] == 'NoDetect':
+    #     cumulative_time += grouped_L[0][1]
+    # for j in xrange(len(story_idx)):
+    #     final_order.append({'name':story_order[j],'time':cumulative_time,'type':'story'})
+    #     cumulative_time += final_time[story_order[j]]
+    #     for i in gap_fillers.keys():
+    #         if j < len(story_idx) - 1:
+    #             if story_idx[j] < i and i < story_idx[j+1]:
+    #                 # m1 =  grouped_L[story_idx[j]][0]  - final_time[m1]
+    #                 temp = gap_fillers[i]['time']
+    #                 gap_fillers[i]['time'] = cumulative_time 
+    #                 final_order.append(gap_fillers[i])
+    #                 cumulative_time += temp
     # print "Final Story time:"
     # print cumulative_time
 
@@ -180,7 +193,7 @@ def lp_gap_solver(lda_model, story, story_idx, word_dist, generic_word_dist, gro
             # print idx[i],keys[j], possible_stories[i][-1], summary_information(story[keys[j]][-1])
             if (1-g_x.value[i,j]) <= epsilon:
                 updated_stories[idx[i]] = keys[j]
-                print idx[i],keys[j], possible_stories[i][1],possible_stories[i][2],possible_stories[i][-1], summary_information(story[keys[j]][-1])
+                # print idx[i],keys[j], possible_stories[i][1],possible_stories[i][2],possible_stories[i][-1], summary_information(story[keys[j]][-1])
 
     return updated_stories
         
@@ -211,36 +224,36 @@ def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic
         # print '==========================='
         # print 'GAP:',i
 
-        flag = True
-        for j in generic_word_dist.keys():
-            val1 = compute_distance(lda_model, word_dist[m1][-1], generic_word_dist[j][-1])
-            val2 = compute_distance(lda_model, word_dist[m2][-1], generic_word_dist[j][-1])
-            # print j, summary_information(stories[j][-1]), grouped_L[i][1]
-            if val1 < 0.3 and val2 < 0.3 and summary_information(stories[j][-1]) < grouped_L[i][1] and j not in used_stories:
-                # print stories[j][-1]
-                used_stories.append(j)
-                gap_fillers[i] = {'name':j,'type':'story','time':grouped_L[i][1]}
-                flag = False
-                break
-            elif summary_information(stories[j][-1]) < grouped_L[i][1]:
-                possible_stories.append(j)
-        if flag:
+        # flag = True
+        # for j in generic_word_dist.keys():
+        #     val1 = compute_distance(lda_model, word_dist[m1][-1], generic_word_dist[j][-1])
+        #     val2 = compute_distance(lda_model, word_dist[m2][-1], generic_word_dist[j][-1])
+        #     # print j, summary_information(stories[j][-1]), grouped_L[i][1]
+        #     if val1 < 0.3 and val2 < 0.3 and summary_information(stories[j][-1]) < grouped_L[i][1] and j not in used_stories:
+        #         # print stories[j][-1]
+        #         used_stories.append(j)
+        #         gap_fillers[i] = {'name':j,'type':'story','time':grouped_L[i][1]}
+        #         flag = False
+        #         break
+        #     elif summary_information(stories[j][-1]) < grouped_L[i][1]:
+        #         possible_stories.append(j)
+        # if flag:
             # print m1
             # print m2
             # print used_stories
             # print len(used_stories)
-            if len(possible_stories) == 0:
-                selected = None
-            elif len(possible_stories) == 1:
-                if possible_stories[-1] not in used_stories:
-                    selected = possible_stories[-1]
-                else: 
-                    selected = None
-                gap_fillers[i] = {'story':selected,'type':'story','time':grouped_L[i][1]}
-            else:
-                selected = form_question(lda_model, labels, generic_word_dist, used_stories)
-                gap_fillers[i] = {'story':selected,'idx':i,'type':'question','time':grouped_L[i][1]}
-            used_stories.append(selected)
+        # if len(possible_stories) == 0:
+        #     selected = None
+        # elif len(possible_stories) == 1:
+        #     if possible_stories[-1] not in used_stories:
+        #         selected = possible_stories[-1]
+        #     else: 
+        #         selected = None
+        #     gap_fillers[i] = {'story':selected,'type':'story','time':grouped_L[i][1]}
+        # else:
+        selected = form_question(lda_model, labels, generic_word_dist, used_stories)
+        gap_fillers[i] = {'story':selected,'idx':i,'type':'question','time':grouped_L[i][1]}
+        used_stories.append(selected)
             # print stories[selected][-1]
             # print '==========================='
     
