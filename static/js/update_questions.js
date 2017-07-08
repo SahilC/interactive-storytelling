@@ -39,7 +39,16 @@ $(document).ready(function() {
                       i += 1;
 
                   } else {
-                      if(vid.paused != true) {
+                      var r = Math.random();
+                      var upvalue = $("#upvoted").val();
+                      var downvalue = $("#downvoted").val();
+                      l = upvalue.split(",").length;
+                      l2 = downvalue.split(",").length;
+
+                      document.getElementById('title').innerHTML = result.final[i].value;
+                      document.getElementById('story').innerHTML = result.stories[result.final[i].value][0];
+                      if( r < 1.0/(l+l2)) {
+                        if(vid.paused != true) {
                           var pause_start = new Date().getTime();
                           vid.pause()
                           swal({
@@ -62,7 +71,7 @@ $(document).ready(function() {
                             var id = result.final[i].idx;
                             if($('#id_'+id).html() != '' ) {
                                 var story = $('#id_'+id).html();
-                                console.log(story);
+                                // console.log(story);
                                 document.getElementById('title').innerHTML = story;
                                 pause = pause + (new Date().getTime() - pause_start);
                                 i += 1;
@@ -70,25 +79,24 @@ $(document).ready(function() {
                                 vid.play();
                                 return true;
                             } else {
+                                var newval = '';
                                 if (result.final[i].story.opt1.includes(inputValue)) {
-                                  document.getElementById('title').innerHTML = result.final[i].story.m1;
+                                  newval = result.final[i].story.m1;
                                   pause = pause + (new Date().getTime() - pause_start);
-                                  
                                   // responsiveVoice.speak(result.stories[result.final[i].story.m1][0]);
                                   console.log(result.final[i].story.m1);
                                   i += 1;
                                 } else {
-                                  document.getElementById('title').innerHTML = result.final[i].story.m2;
+                                  newval = result.final[i].story.m2;
                                   pause = pause + (new Date().getTime() - pause_start);
                                   // responsiveVoice.speak(result.stories[result.final[i].story.m2][0]);
                                   console.log(result.final[i].story.m2);
-                                  document.getElementById('story').innerHTML = result.stories[result.final[i].story.m2][0];
                                   i += 1;
                                 }
                                 vid.play();
-                                var newvalue = $("#upvoted").val();
-                                    newvalue = newvalue + "," + $("#title").html();
-                                $("#upvoted").val(newvalue);
+                                
+                                upvalue = upvalue + "," + newval;
+                                $("#upvoted").val(upvalue);
                                 update_stories($("#upvoted").val(),$("#downvoted").val());
                                 // swal("Nice!", "You wrote: " + inputValue, "success");
                                 return true;
@@ -96,11 +104,15 @@ $(document).ready(function() {
                             
                           });
                       }
+
+                      } else {
+                        console.log("WHO");
+                      }
                   }
               } else { 
                   return false; 
               }
-      }, 250); 
+      }, 1000); 
   }
 
   function update_stories(upvoted, downvoted) {

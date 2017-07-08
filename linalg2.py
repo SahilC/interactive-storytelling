@@ -28,7 +28,7 @@ def get_final_order(gap_fillers, g_x, idx, story_idx, story_order, grouped_L, mo
         else:
             if i in idx:
                 gap_fillers[i]['time'] = cumulative_time 
-                gap_fillers[i]['story'] = g_x[i]
+                gap_fillers[i]['value'] = g_x[i]
                 final_order.append(gap_fillers[i])
         cumulative_time += grouped_L[i][1]
 
