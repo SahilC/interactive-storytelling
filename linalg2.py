@@ -171,6 +171,9 @@ def lp_gap_solver(lda_model, story, story_idx, word_dist, generic_word_dist, gro
     problem = Problem(objective, constraints)
     problem.solve()
 
+    f = open("values.txt","a")
+    f.write(str(problem.value)+'\n')
+    f.close()
     updated_stories = {}
     for i in xrange(len(idx)):
         for j in xrange(len(keys)):

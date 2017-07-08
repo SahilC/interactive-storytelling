@@ -3,14 +3,22 @@ from gensim.utils import smart_open, simple_preprocess
 from gensim.parsing.preprocessing import STOPWORDS
 from gensim.matutils import sparse2full
 from gensim.models.ldamulticore import LdaMulticore as ldamc
+import gensim
 from nltk.stem.wordnet import WordNetLemmatizer
 from scipy.linalg import norm
 #from scipy.spatial.distance import pdist, squareform
 import os
 import itertools
 import numpy as np
+import pyLDAvis
+import pyLDAvis.gensim as gs
 
 lmtzr = WordNetLemmatizer()
+
+
+def visualize_topics(lda, corpus, dictionary):
+	d = gs.prepare(lda, corpus, dictionary)
+	pyLDAvis.save_html(d,'visualization.html')
 
 def compute_distance(lda, l1, l2):
 	d1 = sparse2full(l1, lda.num_topics)
@@ -38,6 +46,8 @@ def build_lda(corpus_file, num_topics = 75):
 	(dictionary, text, corp) = build_corpus(corpus_file)
 	corpus = [dictionary.doc2bow(t) for t in corp]		
 	lda = ldamc(corpus,num_topics = num_topics)
+	visualize_topics(lda,corpus,dictionary)
+
 	# print_topics(lda, dictionary, num_topics)
 	return lda
 
@@ -93,4 +103,5 @@ def find_distance(lda_model, topic_dist, word_dist, m1, m2, s1):
 # if __name__ == '__main__':
 # 	lda_model = build_lda('../data/stories/story_data.dat', num_topics = 100)
 # 	find_pairwise_dissimilar(lda_model)
+
 
