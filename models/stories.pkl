@@ -1,0 +1,175 @@
+ccollections
+defaultdict
+p0
+(cdill.dill
+_load_type
+p1
+(S'ListType'
+p2
+tp3
+Rp4
+tp5
+Rp6
+S'InternationalTrade.dat'
+p7
+(lp8
+S' during the reign of ibrahim qutb shah, the fourth king of golconda became a market for the whole world. merchants from turkey, arabia, and persia were so well treated that they used to visit golconda frequently. during mohamed qutb shah\xe2\x80\x99s time, the dutch established themselves at machilipatnam in 1615 and the english in 1622.'
+p9
+asS'CulturalInfluence_short.dat'
+p10
+(lp11
+S'earlier the qutub shahi rulers patronized persianate culture, but eventually adopted the regional culture of the deccan, symbolized by the telugu language and the newly developed deccani idiom of urdu became prominent. although telugu was not their mother tongue, the golconda rulers spoke and wrote telugu, and patronized telugu so exclusively they were termed the "telugu sultans". ibrahim quli was thoroughly acquainted with telugu aesthetics.\n'
+p12
+asS'Military.dat'
+p13
+(lp14
+S'one of the regular military exercises was called \xe2\x80\x9cthe ceremony of mounting guard\xe2\x80\x9d. every monday nobles of golconda mount guard each in his turn and were relieved at the end of the week. some of these nobles commanded 5,000 or 6,000 horse, and they encamped under their tents around the town. when they mount guard, each goes from his home to the rendezvous. from there, they march in good order across the bridge, and from then by the main street they assemble in the square in front of the fort balcony. in the vanguard, ten or twelve elephants can be seen marching, more or fewer according to the rank of him who goes off guard. some among these elephants used to carry howdas which were used to carry more people, and there were others which only carried their driver, and another man instead of the howdas, who used to hold a sort of banner. after the elephants, the camels followed two by two, sometimes up to thirty or forty. each camel had its saddle, upon which they placed a small culverin (a long slender gun), which a man, clad in a skin from head to foot, like a sort of pantaloon, and seated in the crupper of the camel with a lighted match in hand, quickly turns from side to side before the balcony where the king is. following them were the carriages, around which the servants walked on foot, after which the led\xe2\x80\x90horses appeared and finally the noble to whom this whole equipment belongs, preceded by ten or twelve courtesans, who awaited him at the end of the bridge, leaping and dancing before him up to the square. after him the cavalry and infantry follow in good order. for the people watching this ceremony, that afforded a spectacle, and had something of pomp about it.\n'
+p15
+asS'Introduction.dat'
+p16
+(lp17
+S'welcome to golconda. you can still see the splendour that was here. very soon, golconda became a hub of composite culture with unique architecture and monuments of a distinct qutub shahi style, a fusuion of indian and persian styles. golconda fort lies 11 km to the west of city of hyderabad, while the qutb shahi tombs are a further kilometre north-west of the fort. charminar is located in the heart of the old city of hyderabad. the monuments of the qutb shahi period represent different building typologies; '
+p18
+aS'welcome to golconda. sultan quli was the first ruler to rule over this place. he fortified the inner structure of the mud fort which stood here. his son, ibhrahim quli, further strengthened it and constructed the inner places, moques and other buldings. you can still see the splendour that was here. the strong shia following and lineage with persia encouraged the constant influx of persians who made a strong impact on all walks of life and culture. during the qutub shahi rule of 175 lunar years, golconda and hyderabad blossomed with activities of trade and culture. very soon, golconda became a hub of composite culture with unique architecture and monuments of a distinct qutub shahi style, a fusuion of indian and persian styles. '
+p19
+aS"welcome to golconda. sultan quli was the first ruler to rule over this place. he fortified the inner structure of the mud fort which stood here. his son, ibhrahim quli, further strengthened it and constructed the inner places, moques and other buldings. you can still see the splendour that was here. the strong shia following and lineage with persia encouraged the constant influx of persians who made a strong impact on all walks of life and culture. during the qutub shahi rule of 175 lunar years, golconda and hyderabad blossomed with activities of trade and culture. very soon, golconda became a hub of composite culture with unique architecture and monuments of a distinct qutub shahi style, a fusuion of indian and persian styles. this indo-persian fusion extended beyond architecture and influenced people's lives in every sphere. this unique culture which evolved was known as deccani which is popular now as hyderabadi culture. located in the city of hyderabad, capital of the state of andhra pradesh, golconda fort, qutb shahi tombs and charminar are the landmarks that symbolize the qutb shahi dynasty. golconda fort lies 11 km to the west of city of hyderabad, while the qutb shahi tombs are a further kilometre north-west of the fort. charminar is located in the heart of the old city of hyderabad. the monuments of the qutb shahi period represent different building typologies; "
+p20
+asS'Conclusion.dat'
+p21
+(lp22
+S'golconda is a fortified citadel and an early capital city of the qutb shahi dynasty. it is an ensemble of military structures, ramparts, gates, bastions, armoury; religious structures such as mosques, temples; residential structures such as palaces; water systems such as canals, fountains and landscaped gardens. the monuments are masterpieces of the qutb shahi dynasty, and stand as testimony to the past glory of the qutb shahi dynasty and its creative achievements.'
+p23
+aS'golconda is a fortified citadel and an early capital city of the qutb shahi dynasty. charminar on the other hand, is a ceremonial gateway built to celebrate the foundation of hyderabad, a new millennial city, in 1591 a.d. the monuments are masterpieces of the qutb shahi dynasty, and stand as testimony to the past glory of the qutb shahi dynasty and its creative achievements.'
+p24
+aS'golconda is a fortified citadel and an early capital city of the qutb shahi dynasty. it is an ensemble of military structures, ramparts, gates, bastions, armoury; religious structures such as mosques, temples; residential structures such as palaces; water systems such as canals, fountains and landscaped gardens. the tombs of qutb shahis are a mausoleum complex, a royal necropolis which comprises the tombs of the royal family and the officials who faithfully served them and also mortuary bath and mosques. charminar on the other hand, is a ceremonial gateway built to celebrate the foundation of hyderabad, a new millennial city, in 1591 a.d. the monuments are masterpieces of the qutb shahi dynasty, and stand as testimony to the past glory of the qutb shahi dynasty and its creative achievements.'
+p25
+asS'DiamondTrade_short.dat'
+p26
+(lp27
+S'machilipatnam was developed as a trade center and a thriving market particularly of diamonds was developed nearby the golconda fort, the work force involved in the diamond trading was up to 100,00 people. out of 38 diamond mines of india, 23 were located in the golconda sultanate. the top four pink diamonds of the world are from golconda. magnificent diamonds were taken from the mines in the region surrounding golconda, including the daria-i-noor or "sea of light", at 185 carats, the largest and finest diamond of the crown jewels of iran. the golkonda fort used to have a vault where once the famous koh-i-noor and hope diamonds were stored along with other diamonds.'
+p28
+asS'sultanibrahimqutbshah.dat'
+p29
+(lp30
+S"sultan ibrahim qutb shah(1550 a.d.-1580a.d.)\nwhen subhan quli ascended the throne, his uncle, prince ibrahim was a fugitive at vijaynagar. when the regent of subhan quli aspired to the crown and became so powerful and overbearing, some of the nobles made secret overtures to prince ibrahim, inviting him to court. with the help from naikwaris, the hindu soldiers garrisoned at golconda, prince ibrahim defeated the regent and entered golconda. he was crowned as king ibrahim qutb shah on the 27th july 1550, when he was twenty years old. jagdeo rai, the leader of the naikwaris who was made prime minister in the court of sultan ibrahim, planned to dethrone ibrahim. when this plan was found out, he fled to berar and finally reached vijayanagar kingdom. since the advent of jagdeo rai at vijayanagar, friendly relations between golconda and vijayanagar gradually became strained and finally broke under the pressure of aggression. vijayanagar at that time was a very powerful kingdom. under the leadership of the king of bijapur, but through the mediation of the king of golconda, a league of the faithful was formed against vijayanagar, consisting of the four muhammadan states of ahmednagar, bidar, bijapur, and golconda. the armies of the league marched out from the plains of bijapur on the 24th december 1564, and on the 24th january 1565, the decisive battle known as the battle of talikot was fought. it destroyed the great hindu empire of vijayanagar and it's capital hampi was plundered and burned for five months. ibrahim qutb shah strengthened the fortifications around the hill with stone and mortar, and at his invitation, many of the nobles constructed buildings within the walls. beside several mosques and schools, ibrahim built the langar house at golconda and planted the ibrahim bagh at the site of the tombs. to him, we owe the very pleasure of the husain sagar tank which was built under the king's orders in 1575 by husain shah wali, and was supposed to be named ibrahim sagar. but due to the popularity of husain shah wali, the tank was named as hussain sagar by the people. ibrahim qutb shah established security and encouraged able characters at his court. golconda became a market for the whole world during his reign. and merchants from other countries were so well treated that they returned frequently. ibrahim qutb shah died on the 2nd june 1580. his third son, muhammad quli succeeded to the throne."
+p31
+asS'subhanquliqutbshah.dat'
+p32
+(lp33
+S"subhan quli qutb shah(1550 a.d.-1550 a.d.)\nwhen jamshed died, his son subhan quli qutb shah, seven years old, was placed on the throne. he was a patron of telugu language in the qutub shahi court and literature on the legacy of his noble grandfather sultan quli qutub shah. saif khan, also known as ainul mulk, was sent from ahmednagar for the performance of duties of regent during the boy's development. but jamsheed's younger brother ibrahim quli qutb shah returned from vijayanagara to golconda, and ascended the throne. his exit from the arena of history is as premature as his entrance into it. after being on the throne for about six months he passes out of our knowledge completely. his death is not recorded, nor is it known where he was buried."
+p34
+asS'mortuarybath'
+p35
+(lp36
+S'built in the style of turkish and persian baths, mortuary baths were used to give baths to deceased royalty before taking them for burial. it has separate cisterns for hot and cold water.\n'
+p37
+aS'lying to the right side of clapping portico are mortuary baths which served as a final stopping point for the deceased royalty before proceeding further to their final resting place, the qutb shahi tombs. built in the style of turkish and persian baths, this structure was meant for the ceremonial bathing of deceased royalty and women belonging to royal harem before further ceremonies. it has separate cisterns for hot and cold water with arrangement of concealed terracotta conduits plaster with lime mortar for ensuring regular water supply. after the bodies of the deceased have been washed, they were dressed according to the custom and were taken for burial through the murda gate located at the side of the fort. \n'
+p38
+aS'lying to the right side of clapping portico are mortuary baths which served as a final stopping point for the deceased royalty before proceeding further to their final resting place, the qutb shahi tombs. built in the style of turkish and persian baths, this structure was meant for the ceremonial bathing of deceased royalty and women belonging to royal harem before further ceremonies. it has separate cisterns for hot and cold water with arrangement of concealed terracotta conduits plaster with lime mortar for ensuring regular water supply. after the bodies of the deceased have been washed, they were dressed according to the custom and were taken for burial through the murda gate located at the side of the fort. \n'
+p39
+asS'constructions_short.dat'
+p40
+(lp41
+S'the qutb shahi kingdom undertook various construction programmes across golconda. ibrahim qutb shah strengthened the fortifications around the hill with stone and mortar, and many of the nobles constructed buildings within the walls. beside several mosques and schools he built ibrahim tank, husain sagar tank, ibrahim bagh near qutb shahi tombs and langar house at golconda. mahomed quli qutb shah constructed bhagyanagar after his favourite mistress bhagmati. the jami masjid was erected near the charminar. the dad mahal or the hall of justice was also built around 1598. out of many constructions that were taken by qutb shahis, only few remain today. mohamed qutb shah, the sixth king of golconda laid foundation to the mecca masjid of hyderabad.'
+p42
+asS'muhammadqutbshah.dat'
+p43
+(lp44
+S"muhammad qutb shah(1611 a.d.-1626a.d.)\nas muhammad quli left no son to inherit, the next king was his nephew, muhammad qutb shah, son of muhammad arain, who was the sixth son of king ibrahim qutb shah. muhammad qutb shah was also the son-in-law of the late king, having married his daughter hayat baksh begum. muhammad qutb shah was born in april 1593 and ascended the throne of golconda on the 17th december 1611. his reign of fourteen years was uneventful, it was the lull before the storm. he was a historian and philosopher, and although he did not neglect the duties of his kingly office, most of his time was spent in study and exchanges with the learned men whom he encouraged at his court. the qutb shah chronicles were compiled during his reign. he laid out some gardens to add to the beauty of his capital, but his principal undertaking was the foundation of the mecca masjid in the city of hyderabad, leaving the building to be continued by his successors. in muhammad qutb shah's reign, the dutch established themselves at machilipatnam 1615 and the english in 1622. muhammad qutb shah died on the 11th february 1626."
+p45
+asS'jamshedqutbshah.dat'
+p46
+(lp47
+S"jamshed qutb shah(1543 a.d-1550 a.d.)\njamshed qutb shah ascended the throne on the death of his father in 1543 a.d. one of his first acts was to try to seize his younger brother ibrahim, who was governor of one of the telangana forts. ibrahim fled to bidar and later found shelter at vijaynagar, where the great rama raya was reigning. soon after jamshed's accession ali barid, king of bidar waged war against golconda. he was within seven miles of the fort before jamshed knew of his coming. immediately jamshed collected a force and marched on bidar, forcing ali barad to withdraw to save his own capital. jamshed was a warlike ruler and a man of considerable sagacity. he interfered far more than was the custom with his successors in conflicts between the sultans of deccan. during his reign he bore a part in various quarrels between the kings of ahmednagar, bidar and bijapur, his clever diplomacy invariably guiding him to espouse the cause of the winning side. he was also a poet. about two years before he died jamshed was stricken with cancer. during the end of his reign, many paid the maximum penalty for the most trivial offences. jamshed died early in 1550 a.d., after reigning nearly seven years."
+p48
+asS'abdullaqutbshah.dat'
+p49
+(lp50
+S"abdulla qutb shah(1626a.d.-1672a.d.)\nmuhammad qutb shah's son abdulla ascended the throne on the death of his father in a time of great difficulties for the qutb dynasty. it was in his time that the mughals commenced experimenting in the two directions of local authority and federal harmony. under his rule, the english got to establish their trade at the port of machilipatnam. in 1655-56, a rupture occurred between the king and his minister, mir jumla. mir jumla appealed to the mughal prince aurangzeb for protection. aurangzeb exfoliated an ordinary incident into a series of imposing mysteries. he made mir jumla a commander of 5,000 horse and his son, muhammad amin, a commander of 2,000 horse in the imperial service. thereupon aurangzeb dispatched armies to capture golconda in 1656. the siege had not lasted long before orders arrived from delhi, from the emperor shah jahan, to suspend hostilities. king abdulla like a wise man, was glad to buy off the mughals with a promise to pay a heavy indemnity to cover the cost of the expedition and to clear arrears of tribute, but the principal condition of the treaty was the marriage of his second daughter to the imperial prince, muhammad sultan, and the recognition of the latter as the heir-apparent to the throne of golconda. it is said that mir jumla, when defected to mughals, presented the emperor shah jahan with a magnificent diamond, believed to be the koh-i-noor. after the attack by the mughal army, abdulla qutb shah added largely to the defenses of the fort. naya qila, the eastern portion of the fort was built by him to take in a hillock which gives the holder some advantage over the fortress. abdulla qutb shah was a just and liberal prince, but he was not shrewd enough for his time. being an enthusiastic patron of learning and architecture, he founded many colleges. he also built several mosques, including the toli masjid, palaces, baths, and gardens. work on the mecca masjid seems to have languished, if it did not stop, during his reign. abdulla qutb shall died on the 1st may 1672. he left no sons but had three daughters. the husband of the third daughter, abul hasan succeeded him to the throne."
+p51
+asS'sultanquliqutbshah.dat'
+p52
+(lp53
+S'sultan quli qutb shah(1518 a.d-1543 a.d.)\nsultan quli qutb-ul-mulk was the first king and founder of golconda kingdom and ruled from 1518 a.d. to 1543 a.d. it is said that he was a turk and arrived in the deccan, now a part of india, along with his family around the middle of the fifteenth century. he joined as the bodyguard of the bahmani king and later got appointed as accountant general of the imperial harem at telangana. he was called sultan quli while in bahmani court. here sultan is not a royal title rather the name sultan quli get\xe2\x80\x99s translated to \xe2\x80\x9cservant of king\xe2\x80\x9d, as quli is a turki word meaning servant. in 1495, sultan quli qutb-ul-mulk was awarded the title of amir-ul-umra for saving the king of bahmani empire from assassination and was appointed the governor of the telangana district whose headquarters were at golconda. when mahmood shah bahmani, the ruler of bahmani kingdom died in 1518, sultan quli assumed independence as sultan quli qutb shah of golconda. by this time he had already replaced the mud fort of golconda by a substantial fortress of stone. sultan quli\xe2\x80\x99s first campaign as king was against krishna deva raya of the vijayanagar kingdom where he captured some forts. during his long reign, the king was in almost ceaseless warfare as a result of which the boundaries of golconda kingdom expanded. sultan quli beautified his fortress with mosques, palaces and gardens. sultan quli\xe2\x80\x99s elder son had died during his reign and his second son khutb-ud-din was blinded by the third son jamshed for which he was imprisoned. jamshed, while imprisoned in jail is said to have instigated mir muhammad hamidani, the governor of golconda, to kill the king. while praying in the principal mosque, the jami masjid, in september 1543, sultan quli on his 99th year was murdered by getting stabbed. sultan quli reigned for 48 years, 23 as governor and 25 as king of golconda.\n'
+p54
+asS'nakkarkhana'
+p55
+(lp56
+S"while walking by aslah khana, an open space can be seen on it's right side. this was where the drum bearers used to perform during festivals and ceremonies."
+p57
+aS"while walking by aslah khana, an open space can be seen on it's right side. this was where the drum bearers used to perform during festivals and ceremonies."
+p58
+aS"while walking by aslah khana, an open space can be seen on it's right side. this was where the drum bearers used to perform during festivals and ceremonies."
+p59
+asS'constructions.dat'
+p60
+(lp61
+S'by the time of ibrahim qutb shah, the fourth king of golconda, the kingdom got stabilized and the kings undertook various construction programmes across golconda. ibrahim qutb shah strengthened the fortifications around the hill with stone and mortar, and at his invitation many of the nobles constructed buildings within the walls. beside several mosques and schools he built ibrahim tank, husain sagar tank, ibrahim bagh near qutb shahi tombs and langar house at golconda. to cater for the needs of growing population of golconda, mahomed quli qutb shah, the fifth king of golconda constructed a new city in 1591 and named it bhagyanagar after hs favourite mistress bhagmati. in 1593, char minar along with purana pul were built. mohamed quli built dar-us-shifa and in 94 commenced the ashur khana, which stands opposite to salar jung palace. in 1598, the jami masjid was erected near the charminar. the dad mahal or the hall of justice was also built around 1598. out of many constructions that were taken by qutb shahis, only few remain today and the rest have been eradicated by the ruthless hands of time. mohamed qutb shah, the sixth king of golconda laid foundation to the mecca masjid of hyderabad and left the building to be continued by his successors.'
+p62
+asS'Military_short.dat'
+p63
+(lp64
+S'one of the regular military exercises was called \xe2\x80\x9cthe ceremony of mounting guard\xe2\x80\x9d. every monday nobles of golconda mount guard each in his turn and were relieved at the end of the week. when they mount guard, each goes from his home to the rendezvous. from there, they march in good order across the bridge, and from then by the main street they assemble in the square in front of the fort balcony.'
+p65
+asS'muhammadquliqutbshah.dat'
+p66
+(lp67
+S'muhammad quli qutb shah(1580 a.d-1611 a.d.)\nmuhammad quli qutb shah was born on the 8th april 1566 and ascended the throne on the death of his father in 1580. during his long, peaceful and prosperous reign the dynasty reached its zenith. the time which his predecessors gave for the battlefield, he devoted to the improvement and embellishment of his capital. as time passed, golconda became very unhealthy through over-population, and in 1591 the king built a magnificent city a few miles away, which he named bhagnagar to commemorate his favorite mistress, bhagmati. after her death, the king was persuaded to change the name of the city to haidarabad which changed to hyderabad with the passage of time. in the new city, which was laid out on the "gridiron" principle, there were two important crossings over the main road. at the junction with the road from golconda, muhammad quli built the char minar in 1593, and at the crossing to masulipatam, he erected the gulzar hauz. in the same year, the purana pul was built. muhammad quli also built the dar-us-shifa and in 1594 commenced the ashur khana. in 1598 the jami masjid was erected near the char minar. the dad mahal was built about the same time. several palaces were erected, e. g. the chandav mahal, hira mahal, lakhan mahal, and the nadi mahal. only the names of many of these remain today. muhammad quli made extensive additions to the fort of golconda. during his reign, kurnool, nandial, dole, gandikota and kadapa in the south were added to the golconda dominions and inroads were made into the eastern districts of nellore. in 1611, the first venture on behalf of the east india company was made in his time at masulipatam. muhammad quli apart from being a just and capable king was also a poet. he died after a brief illness, in the thirty-second year of his reign, on the 17th december 1611.'
+p68
+asS'bhagmatipalace'
+p69
+(lp70
+S'bhagmathi palace stands to the left side of dad mahal. this palace was said to be built by mohammad quli qutb shah, the fifth king of golconda for his lover bhagmathi.\n'
+p71
+aS'standing to the left side of dad mahal and right side of stable, lie bhagmathi palace. this palace was said to be built by mohammad quli qutb shah, the fifth king of golconda for his lover bhagmathi. the king also built a city and named after her as bhagyanagar which later changed to hyderabad.\n'
+p72
+aS'standing to the left side of dad mahal and right side of stable, lie bhagmathi palace. this palace was said to be built by mohammad quli qutb shah, the fifth king of golconda for his lover bhagmathi. the king also built a city and named after her as bhagyanagar which later changed to hyderabad.\n'
+p73
+asS'kilwat'
+p74
+(lp75
+S'standing to the front of the rani mahal and to the side of zenana dressing room lies kilwat. this is a small two storied chamber specially designed to be the royal private quarters. the king used to rest here before attending the court at dad mahal.\n'
+p76
+aS'standing to the front of the rani mahal and to the side of zenana dressing room lies kilwat. this is a small two storied chamber specially designed to be the royal private quarters. the king used to rest here before attending the court at dad mahal.\n'
+p77
+aS'standing to the front of the rani mahal and to the side of zenana dressing room lies kilwat. this is a small two storied chamber specially designed to be the royal private quarters. the king used to rest here before attending the court at dad mahal.\n'
+p78
+asS'abulhasan.dat'
+p79
+(lp80
+S"abul hasan(1672a.d-1687a.d.)\nafter abdulla qutb shah's death in 1672, his youngest son-in-law, abul hasan ascended the throne and entrusted the affairs of state to his prime minister madanna. in 1683 emperor aurangzeb collected all the forces of the empire to make one grand and final attack upon the deccan and reconquer it after a fitful series of wars begun by his great grandfather, akbar. aurangzeb marched at the head of what is known as the grand army. aurangzeb warned abul hasan not to interfere and abul hasan not heeding the warning wrote to bijapur the only other deccan sultanate standing, proposing to send 40,000 men to his help and to secure the assistance of marathi leader, sambha ji. the letter fell into the hands of aurangzeb and he immediately detached prince shah alam with a large army to march on golconda. abul hasan lost in this battle when aurangzeb arrived on the battlefield with his main army and some heavy terms were imposed on him which also contain the orders for the dismissal of madanna and akkanna along with others. abul hasan put off the dismissal of madanna and akkanna until the discontented nobles, who regarded these men as the cause of all their misfortunes, lost all patience and murdered these brothers.   the dowager queen sent the heads of madanna and akkanna to aurangzeb as a peace offering and abul hasan had a brief respite until bijapur fell. but nothing could shake off aurangzeb's determination to end abul hasan's rule resulting in him attacking golconda in 1687. when aurangzeb attacked golconda, abul hasan fled to his fort and the city was occupied by the mughals for the third time, under ghazi-ud-din firoz jung, the father of the first nizam. with the whole might of the mughal empire at his back, aurangzeb beat incessantly for eight months against golconda's fortifications with no results. abdulla khan pani, a general in golconda's army was bribed to open golconda's gate allowing the mughal army to pass through fateh darwaza at midnight. after a long siege of eight months, the kingdom of golconda fell, not due to force but treachery. abul hasan was taken a prisoner and was sent to daulatabad to spend the rest of his life. he was allotted chini mahal where he stayed, until his death in 1704 a.d. and was buried at roza."
+p81
+asS'taramatimosque'
+p82
+(lp83
+S'situated right next to nakkar khana is a mosque. this mosque is said to be dedicated to the dancer and queen taramati who was employed in the royal court of abdulla qutb shah, the seventh king of golconda.'
+p84
+aS'situated right next to nakkar khana is a mosque. this mosque is said to be dedicated tothe dancer and queen taramati who was employed in the royal court of abdulla qutb shah, the seventh king of golconda. '
+p85
+aS'situated right next to nakkar khana is a mosque. this mosque is said to be dedicated tothe dancer and queen taramati who was employed in the royal court of abdulla qutb shah, the seventh king of golconda. '
+p86
+asS'aslahkhana'
+p87
+(lp88
+S'also called as silah khana, this place was used as an armoury during qutub shahi times. it is said to have around 150 rooms.\n'
+p89
+aS'also called as silah khana, this place was used as armoury during qutub shahi times. it is said to have around 150 rooms. some of the long cannons with quite a few cannon balls are displayed in one of the large arched windows here. since silah khana is an essential structure to fort defences, it is situated close to balahissar gate.'
+p90
+aS'also called as silah khana, this place was used as armoury during qutub shahi times. it is said to have around 150 rooms. some of the long cannons with quite a few cannon balls are displayed in one of the large arched windows here. since silah khana is an essential structure to fort defences, it is situated close to balahissar gate.'
+p91
+asS'CulturalInfluence.dat'
+p92
+(lp93
+S'the court of quli qutb mulk, the first ruler of golconda became a haven for persian culture and literature. sultan muhammad quli qutb shah, the fifth king of golconda wrote poems in dakhini urdu, persian and telugu and left a huge poetry collection. subsequent poets and writers, however wrote in urdu, while using vocabulary from persian, hindi and telugu languages. by 1535, the qutub shahis were using telugu for their revenue and judicial areas within the sultanate. initially, the qutub shahi rulers patronized persianate culture, but eventually adopted the regional culture of the deccan, symbolized by the telugu language and the newly developed deccani idiom of urdu became prominent. although telugu was not their mother tongue, the golconda rulers spoke and wrote telugu, and patronized telugu so exclusively they were termed the "telugu sultans". in 1543, fearing for his life, prince ibrahim quli fled to the vijayanagaram court, which lavishly patronized the telugu language. upon his enthronement as sultan in 1550, ibrahim quli was thoroughly acquainted with telugu aesthetics.\n'
+p94
+asS'InternationalTrade_short.dat'
+p95
+(lp96
+S' during the reign of ibrahim qutb shah, the fourth king of golconda became a market for the whole world. merchants from turkey, arabia, and persia were so well treated that they used to visit golconda frequently. during mohamed qutb shah\xe2\x80\x99s time, the dutch established themselves at machilipatnam in 1615 and the english in 1622.'
+p97
+asS'DiamondTrade.dat'
+p98
+(lp99
+S'earlier, golconda sultanate was located in between the two major sea routes of india, surat and machilipatnam. the town was developed as a trade center and, under the patronage of the qutb shahi rulers, a thriving market particularly of diamonds was developed nearby the golconda fort, the work force involved in the diamond trading was up to 100,00 people. the medieval diamond trade drew travelers from around the world and the ruling patrons constructed facilities and provided security for traders to stay and do business, particularly those travelling from europe and central asia. golconda established itself as a diamond trading center and, until the end of the 19th century, the golconda market was the primary source of the finest and largest diamonds in the world. out of 38 diamond mines of india, 23 were located in the golconda sultanate, making it the \'diamond capital\' of the past. it was considered a point of pride by any ruler to be the owner of one of the golconda diamonds. the top four pink diamonds of the world are from golconda. magnificent diamonds were taken from the mines in the region surrounding golconda, including the daria-i-noor or "sea of light", at 185 carats, the largest and finest diamond of the crown jewels of iran. the golkonda fort used to have a vault where once the famous koh-i-noor and hope diamonds were stored along with other diamonds. jean-baptiste tavernier, renowned french traveller and jeweller dedicates most of the chapters in his book to the diamonds of golconda.'
+p100
+as.
