@@ -32,7 +32,7 @@ $(document).ready(function() {
 
               if(  time > result.final[i].time ) {
                   if(result.final[i].type == 'story') {
-                      // responsiveVoice.speak(result.stories[result.final[i].name][0]);
+                      responsiveVoice.speak(result.stories[result.final[i].name][0]);
                       console.log(result.final[i].name);
                       document.getElementById('title').innerHTML = result.final[i].name;
                       document.getElementById('story').innerHTML = result.final_stories[result.final[i].name];
@@ -76,6 +76,7 @@ $(document).ready(function() {
                                 pause = pause + (new Date().getTime() - pause_start);
                                 i += 1;
                                 document.getElementById('story').innerHTML = result.stories[story][0];
+                                responsiveVoice.speak(result.stories[result.stories[story][0]][0]);
                                 vid.play();
                                 return true;
                             } else {
@@ -83,18 +84,16 @@ $(document).ready(function() {
                                 if (result.final[i].story.opt1.includes(inputValue)) {
                                   newval = result.final[i].story.m1;
                                   pause = pause + (new Date().getTime() - pause_start);
-                                  // responsiveVoice.speak(result.stories[result.final[i].story.m1][0]);
                                   console.log(result.final[i].story.m1);
                                   i += 1;
                                 } else {
                                   newval = result.final[i].story.m2;
                                   pause = pause + (new Date().getTime() - pause_start);
-                                  // responsiveVoice.speak(result.stories[result.final[i].story.m2][0]);
                                   console.log(result.final[i].story.m2);
                                   i += 1;
                                 }
                                 vid.play();
-                                
+                                responsiveVoice.speak(result.stories[newval][0]);
                                 upvalue = upvalue + "," + newval;
                                 $("#upvoted").val(upvalue);
                                 update_stories($("#upvoted").val(),$("#downvoted").val());

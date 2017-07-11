@@ -33,18 +33,17 @@ def get_labels_lda(lda_model):
 		preprocessing_steps=['wordlen', 'stem', 'tag'],
 		n_cand_labels=100,
 		label_min_df=2,
-		label_tags=['NN,NN', 'JJ,NN'],
+		label_tags=['NN,NN'], # 'JJ,NN'
 		n_labels=10,
 		lda_random_state=12345,
 		lda_n_iter=400)
 	return labels
 
-def form_question(lda_model, labels, word_dist,used_keys = []):
-	dissimilar_vals = find_pairwise_dissimilar(lda_model, [j[-1] for j in word_dist.values()], word_dist.keys(), used_keys)
-	monument1, monument2 = find_most_dissimilar(dissimilar_vals)
-
-	# print monument1
-	# print monument2
+def form_question(lda_model, m1, m2, labels, word_dist,used_keys = []):
+	# dissimilar_vals = find_pairwise_dissimilar(lda_model, [j[-1] for j in word_dist.values()], word_dist.keys(), used_keys)
+	# monument1, monument2 = find_most_dissimilar(dissimilar_vals)
+	monument1 = m1
+	monument2 = m2
 	# print '======================================='
 	# Find maximum disimilar topics for the topics with the maximum magnitude -- Need to experiment
 	_, idx1 = np.argmax(word_dist[monument1][-1],axis=0)

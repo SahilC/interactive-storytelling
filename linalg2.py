@@ -28,8 +28,9 @@ def get_final_order(gap_fillers, g_x, idx, story_idx, story_order, grouped_L, mo
         else:
             if i in idx:
                 gap_fillers[i]['time'] = cumulative_time 
-                gap_fillers[i]['value'] = g_x[i]
-                final_order.append(gap_fillers[i])
+                if i in g_x.keys():
+                    gap_fillers[i]['value'] = g_x[i]
+                    final_order.append(gap_fillers[i])
         cumulative_time += grouped_L[i][1]
 
     # if grouped_L[0][0] == 'NoDetect':
@@ -123,12 +124,15 @@ def lp_gap_solver(lda_model, story, story_idx, word_dist, generic_word_dist, gro
     u_stories = np.zeros((len(idx),len(generic_word_dist.keys())),dtype=np.float64)
     d_stories = np.zeros((len(idx),len(generic_word_dist.keys())),dtype=np.float64)
 
+    l_stories = np.zeros((len(idx),len(generic_word_dist.keys())),dtype=np.float64)
+
     constraints = []
     keys = generic_word_dist.keys()
     for i in xrange(len(idx)):
         for j in xrange(len(keys)):
             # Compute objective for similarity
             s_stories[i][j] = find_distance(lda_model, word_dist, generic_word_dist, possible_stories[i][1],possible_stories[i][2], keys[j])
+            l_stories[i][j] = summary_information(story[keys[j]][-1])
             for k in upvoted:
                 if k != '':
                     if k in word_dist.keys():
@@ -168,7 +172,7 @@ def lp_gap_solver(lda_model, story, story_idx, word_dist, generic_word_dist, gro
     # Objective Function.
     # In objective function, just change what type of information is to be used.
 
-    objective = Maximize(sum_entries(mul_elemwise(s_stories,g_x)))
+    objective = Maximize(sum_entries(mul_elemwise(l_stories,mul_elemwise(s_stories,g_x))))
     
     # # Following are the constraints
     
@@ -193,7 +197,7 @@ def lp_gap_solver(lda_model, story, story_idx, word_dist, generic_word_dist, gro
             # print idx[i],keys[j], possible_stories[i][-1], summary_information(story[keys[j]][-1])
             if (1-g_x.value[i,j]) <= epsilon:
                 updated_stories[idx[i]] = keys[j]
-                # print idx[i],keys[j], possible_stories[i][1],possible_stories[i][2],possible_stories[i][-1], summary_information(story[keys[j]][-1])
+                print idx[i],keys[j], possible_stories[i][1],possible_stories[i][2],possible_stories[i][-1], summary_information(story[keys[j]][-1])
 
     return updated_stories
         
@@ -251,7 +255,7 @@ def greedy_solver(lda_model, story_order, story_idx, word_dist, stories, generic
         #         selected = None
         #     gap_fillers[i] = {'story':selected,'type':'story','time':grouped_L[i][1]}
         # else:
-        selected = form_question(lda_model, labels, generic_word_dist, used_stories)
+        selected = form_question(lda_model, m1, m2, labels, word_dist, used_stories)
         gap_fillers[i] = {'story':selected,'idx':i,'type':'question','time':grouped_L[i][1]}
         used_stories.append(selected)
             # print stories[selected][-1]

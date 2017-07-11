@@ -102,7 +102,7 @@ def very_bad_code(file_name, upvoted, downvoted):
 	# 		prob, story = get_lda_probs(lda_model, 'data/stories/'+j+'/'+name)
 	# 		generic_word_dist[name].append(prob)
 	# 		stories[name].append(story)
-
+	print 'YO_--------'
 	g_x = lp_gap_solver(lda_model, stories, story_idx, word_dist, generic_word_dist, grouped_L, idx, upvoted, downvoted)
 	return g_x
 
