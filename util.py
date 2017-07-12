@@ -30,7 +30,7 @@ def get_labels_lda(lda_model):
 	labels = get_topic_labels(corpus_path='data/stories/story_data.dat',
 		n_topics=50,
 		n_top_words=100,
-		preprocessing_steps=['wordlen', 'stem', 'tag'],
+		preprocessing_steps=['wordlen', 'tag'],
 		n_cand_labels=100,
 		label_min_df=2,
 		label_tags=['NN,NN'], # 'JJ,NN'

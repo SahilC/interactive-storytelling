@@ -32,6 +32,7 @@ def get_final_order(gap_fillers, g_x, idx, story_idx, story_order, grouped_L, mo
                     gap_fillers[i]['value'] = g_x[i]
                     final_order.append(gap_fillers[i])
         cumulative_time += grouped_L[i][1]
+        
 
     # if grouped_L[0][0] == 'NoDetect':
     #     cumulative_time += grouped_L[0][1]

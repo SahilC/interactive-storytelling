@@ -1,11 +1,13 @@
 $(document).ready(function() {
-      var vid = document.getElementById("video_player"); 
+      var vid = document.getElementById("video_player");
+      var music = document.getElementById("music_control"); 
       $.ajax( {
         url: '/stories' ,
         method: 'POST',
         contentType:'application/json',
         data: JSON.stringify({file_name: 'data/VID_20170607_111002.txt'}),
         success: function(response) {
+            music.play();
             var result = JSON.parse(response);
             var num_gaps = result['num_gaps'];
             var idx = result['idx'];
@@ -32,12 +34,11 @@ $(document).ready(function() {
 
               if(  time > result.final[i].time ) {
                   if(result.final[i].type == 'story') {
-                      responsiveVoice.speak(result.stories[result.final[i].name][0]);
                       console.log(result.final[i].name);
                       document.getElementById('title').innerHTML = result.final[i].name;
                       document.getElementById('story').innerHTML = result.final_stories[result.final[i].name];
                       i += 1;
-
+                      responsiveVoice.speak(result.stories[result.final[i].name][0]);
                   } else {
                       var r = Math.random();
                       var upvalue = $("#upvoted").val();
@@ -76,11 +77,12 @@ $(document).ready(function() {
                                 pause = pause + (new Date().getTime() - pause_start);
                                 i += 1;
                                 document.getElementById('story').innerHTML = result.stories[story][0];
-                                responsiveVoice.speak(result.stories[result.stories[story][0]][0]);
+                                responsiveVoice.speak(result.stories[story][0]);
                                 vid.play();
                                 return true;
                             } else {
                                 var newval = '';
+                                var stor = result.final[i].value;
                                 if (result.final[i].story.opt1.includes(inputValue)) {
                                   newval = result.final[i].story.m1;
                                   pause = pause + (new Date().getTime() - pause_start);
@@ -93,7 +95,8 @@ $(document).ready(function() {
                                   i += 1;
                                 }
                                 vid.play();
-                                responsiveVoice.speak(result.stories[newval][0]);
+                                console.log(result.final[i]);
+                                responsiveVoice.speak(result.stories[stor][0]);
                                 upvalue = upvalue + "," + newval;
                                 $("#upvoted").val(upvalue);
                                 update_stories($("#upvoted").val(),$("#downvoted").val());
