@@ -75,7 +75,7 @@ def build_stories(file_name):
 	# print '================================================'
 	final_order = get_final_order(gap_fillers, g_x, idx, story_idx, stories_order, grouped_L, monument_time_final, final_time)
 	# print monument_time_final
-	# print final_order
+	print final_order
 
 	return {'final':final_order ,'stories':stories,'num_gaps':len(idx),'idx':idx, 'final_stories':final_monument_stories}
 
