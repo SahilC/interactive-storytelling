@@ -5,7 +5,7 @@ $(document).ready(function() {
         url: '/stories' ,
         method: 'POST',
         contentType:'application/json',
-        data: JSON.stringify({file_name: 'data/VID_20170607_111002.txt'}),
+        data: JSON.stringify({file_name: 'data/combined/input/VID_20170607_111002.txt'}),
         success: function(response) {
             music.play();
             var result = JSON.parse(response);
@@ -38,9 +38,8 @@ $(document).ready(function() {
                       console.log(result.final[i].name);
                       document.getElementById('title').innerHTML = result.final[i].name;
                       document.getElementById('story').innerHTML = result.final_stories[result.final[i].name];
-                      i += 1;
-
                       responsiveVoice.speak(result.final_stories[result.final[i].name],'Hindi Female');
+                      i += 1;                      
                   } else {
                       var r = Math.random();
                       var upvalue = $("#upvoted").val();
@@ -97,7 +96,6 @@ $(document).ready(function() {
                                   i += 1;
                                 }
                                 vid.play();
-                                console.log(result.final[i]);
                                 responsiveVoice.speak(result.stories[stor][0],'Hindi Female');
                                 upvalue = upvalue + "," + newval;
                                 $("#upvoted").val(upvalue);
@@ -124,7 +122,7 @@ $(document).ready(function() {
           url: '/update_stories' ,
           method: 'POST',
           contentType:'application/json',
-          data: JSON.stringify({file_name: 'data/FILE0573.MOV.txt',upvoted: upvoted, downvoted: downvoted}),
+          data: JSON.stringify({file_name: 'data/combined/input/VID_20170607_111002.txt',upvoted: upvoted, downvoted: downvoted}),
           success: function(response) {
               var result = JSON.parse(response);
               console.log(result);

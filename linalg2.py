@@ -195,7 +195,7 @@ def lp_gap_solver(lda_model, story, story_idx, word_dist, generic_word_dist, gro
     updated_stories = {}
     for i in xrange(len(idx)):
         for j in xrange(len(keys)):
-            # print idx[i],keys[j], possible_stories[i][-1], summary_information(story[keys[j]][-1])
+            print idx[i],keys[j], possible_stories[i][-1], summary_information(story[keys[j]][-1])
             if (1-g_x.value[i,j]) <= epsilon:
                 updated_stories[idx[i]] = keys[j]
                 print idx[i],keys[j], possible_stories[i][1],possible_stories[i][2],possible_stories[i][-1], summary_information(story[keys[j]][-1])

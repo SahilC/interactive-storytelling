@@ -74,7 +74,8 @@ def build_stories(file_name):
 	g_x = lp_gap_solver(lda_model, stories, story_idx, word_dist, generic_word_dist, grouped_L, idx)
 	# print '================================================'
 	final_order = get_final_order(gap_fillers, g_x, idx, story_idx, stories_order, grouped_L, monument_time_final, final_time)
-	print final_order
+	# print monument_time_final
+	# print final_order
 
 	return {'final':final_order ,'stories':stories,'num_gaps':len(idx),'idx':idx, 'final_stories':final_monument_stories}
 

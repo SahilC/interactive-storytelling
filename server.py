@@ -24,7 +24,6 @@ def update_stories():
 
 @app.route('/stories',methods=['GET','POST'])
 def stories():
-	print 'Im here'
 	file_name = json.loads(request.data).get('file_name')
 	story = build_stories(file_name)
 	return json.dumps(story)

@@ -90,7 +90,7 @@ def smooth_values(file_name = 'data/FILE0573.MOV.txt', sampling_rate = 1):
 	t = 0	
 	for l in xrange(0,len(lines),sampling_rate):
 		val = lines[l].split(" ")
-		if float(val[2])*float(val[3]) < 5:
+		if float(val[2])*float(val[3]) < 1:
 			detection2[t] = 'NoDetect'
 		t+=1
 	
