@@ -24,6 +24,7 @@ def update_stories():
 
 @app.route('/stories',methods=['GET','POST'])
 def stories():
+	print 'Im here'
 	file_name = json.loads(request.data).get('file_name')
 	story = build_stories(file_name)
 	return json.dumps(story)
@@ -33,4 +34,5 @@ if __name__ == '__main__':
 		try:
 			app.run(host="127.0.0.1",use_reloader = False,debug=True, threaded=True)
 		except:
+			print 'Error'
 			pass

@@ -15,6 +15,7 @@ $(document).ready(function() {
                 $("#gaps").append("<div id='id_"+idx[i]+"'></div>");
             }
             vid.muted = true;
+            music.volume = 0.3;
             vid.play(); 
             check_and_wait(result);
             // console.log(result.stories)
@@ -38,7 +39,8 @@ $(document).ready(function() {
                       document.getElementById('title').innerHTML = result.final[i].name;
                       document.getElementById('story').innerHTML = result.final_stories[result.final[i].name];
                       i += 1;
-                      responsiveVoice.speak(result.stories[result.final[i].name][0]);
+
+                      responsiveVoice.speak(result.final_stories[result.final[i].name],'Hindi Female');
                   } else {
                       var r = Math.random();
                       var upvalue = $("#upvoted").val();
@@ -77,7 +79,7 @@ $(document).ready(function() {
                                 pause = pause + (new Date().getTime() - pause_start);
                                 i += 1;
                                 document.getElementById('story').innerHTML = result.stories[story][0];
-                                responsiveVoice.speak(result.stories[story][0]);
+                                responsiveVoice.speak(result.stories[story][0],'Hindi Female');
                                 vid.play();
                                 return true;
                             } else {
@@ -96,7 +98,7 @@ $(document).ready(function() {
                                 }
                                 vid.play();
                                 console.log(result.final[i]);
-                                responsiveVoice.speak(result.stories[stor][0]);
+                                responsiveVoice.speak(result.stories[stor][0],'Hindi Female');
                                 upvalue = upvalue + "," + newval;
                                 $("#upvoted").val(upvalue);
                                 update_stories($("#upvoted").val(),$("#downvoted").val());
